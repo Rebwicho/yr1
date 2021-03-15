@@ -2,7 +2,7 @@
 #define COMMON_H
 
 #define WIN32_LEAN_AND_MEAN 
-#include <windows.h>
+#include <Windows.h>
 #undef WIN32_LEAN_AND_MEAN
 
 #include <stdio.h>
@@ -11,6 +11,10 @@
 #include <chrono>
 
 #include <string>
+
+#include <deque>
+
+#include "singleton.h"
 
 typedef unsigned __int8 u8;
 typedef unsigned __int16 u16;

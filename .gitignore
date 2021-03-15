@@ -340,3 +340,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /sb2001_nw/binaries
+/sb2001_nw/external
