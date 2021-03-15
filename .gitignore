@@ -14,6 +14,7 @@
 *.userprefs
 
 # Build results
+intermediate/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -338,3 +339,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/sb2001_nw/binaries
