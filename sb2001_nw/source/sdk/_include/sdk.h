@@ -1,9 +1,9 @@
 #ifndef SDK_H
 #define SDK_H
 
-#include "../sdk/utils/console.h"
+#include "../utils/console.h"
 
-#include "../sdk/memory/pattern.h"
-#include "../sdk/memory/hooking.h"
+#include "../memory/pattern.h"
+#include "../memory/hooking.h"
 
 #endif // SDK_H
