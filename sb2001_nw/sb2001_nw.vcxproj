@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="source\core\memory.cpp" />
     <ClCompile Include="source\dll_main.cpp" />
+    <ClCompile Include="source\game\security\anti_debug.cpp" />
     <ClCompile Include="source\sdk\memory\hooking.cpp" />
     <ClCompile Include="source\sdk\memory\pattern.cpp" />
     <ClCompile Include="source\sdk\sdk.cpp" />
@@ -169,11 +170,12 @@
     <ClInclude Include="external\minhook\MinHook.h" />
     <ClInclude Include="source\core\hooks\hooks.h" />
     <ClInclude Include="source\core\memory.h" />
+    <ClInclude Include="source\game\security\anti_debug.h" />
     <ClInclude Include="source\sdk\memory\hooking.h" />
     <ClInclude Include="source\sdk\memory\pattern.h" />
     <ClInclude Include="source\sdk\utils\console.h" />
     <ClInclude Include="source\sdk\_include\common.h" />
-    <ClInclude Include="source\sdk\_include\game_sdk.h" />
+    <ClInclude Include="source\sdk\_include\game.h" />
     <ClInclude Include="source\sdk\_include\sdk.h" />
     <ClInclude Include="source\sdk\_include\singleton.h" />
   </ItemGroup>
