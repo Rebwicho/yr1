@@ -7,7 +7,7 @@ bool init_objs( )
 {
 	// " init objects "
 	( void )n_sdk::c_console::get( ); // allocate asap
-	
+
 	auto& memory = n_core::c_memory::get( );
 	// move later to more suitable place or organize attach event
 	if ( memory.get_offsets( ) == 0 ) return 0;
