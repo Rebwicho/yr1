@@ -3,11 +3,8 @@
 # Add steps that test and distribute an app, save build artifacts, and more:
 # https://aka.ms/yaml
 
-# /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload
-
 trigger:
 - dev
-- azure-pipelines-testing
 
 pool:
   vmImage: 'windows-latest'
