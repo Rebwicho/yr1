@@ -20,4 +20,3 @@ steps:
     platform: 'x86'
     configuration: '$(buildConfiguration)'
     createLogFile: true
-    logFileVerbosity: 'diagnostic'
