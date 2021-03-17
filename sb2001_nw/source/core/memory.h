@@ -17,15 +17,8 @@ namespace n_core
 	class c_memory : public c_singleton<c_memory>
 	{
 	public:
-		c_memory( )
-		{
-			printf( "[ c_memory ]: spawned\n" );
-		}
-		
-		~c_memory( )
-		{
-			printf( "[ c_memory ]: destructing\n" );
-		}
+		// c_memory( );
+		// ~c_memory( );
 
 	public:
 		bool get_offsets( );
