@@ -1,0 +1,26 @@
+# Universal Windows Platform
+# Build a Universal Windows Platform project using Visual Studio.
+# Add steps that test and distribute an app, save build artifacts, and more:
+# https://aka.ms/yaml
+
+# /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload
+
+trigger:
+- dev
+- azure-pipelines-testing
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '*.sln'
+  buildConfiguration: 'Release'
+
+steps:
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: 'x86'
+    configuration: '$(buildConfiguration)'
+    createLogFile: true
+    logFileVerbosity: 'diagnostic'
