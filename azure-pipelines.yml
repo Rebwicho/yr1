@@ -7,16 +7,22 @@ trigger:
 - dev
 
 pool:
-  vmImage: 'windows-latest'
-
-variables:
-  solution: '*.sln'
-  buildPlatform: 'x86|x64|ARM'
-  buildConfiguration: 'Release'
+  name: 'Default'
 
 steps:
-- task: VSBuild@1
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+- task: MSBuild@1
   inputs:
+    solution: '*.sln'
     platform: 'x86'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
+    configuration: 'release'
+    logProjectEvents: true
+    createLogFile: true
+    logFileVerbosity: 'detailed'
