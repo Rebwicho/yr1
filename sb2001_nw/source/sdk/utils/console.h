@@ -26,7 +26,7 @@ namespace n_sdk
 	inline c_console::c_console( )
 	{
 		this->allocate_console( );
-		printf( "[ c_console ]: spawn\n" );
+		//printf( "[ c_console ]: spawn\n" );
 	}
 
 	//inline c_console::c_console( std::string console_title )
