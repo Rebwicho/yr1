@@ -8,7 +8,7 @@ trigger:
 
 pool:
   name: 'Default'
-
+  
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
@@ -26,3 +26,4 @@ steps:
     logProjectEvents: true
     createLogFile: true
     logFileVerbosity: 'detailed'
+    
