@@ -9,14 +9,10 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  solution: '*.sln'
-  buildPlatform: 'x86|x64|ARM'
-  buildConfiguration: 'Release'
-
 steps:
 - task: VSBuild@1
   inputs:
+    solution: '*.sln'
     platform: 'x86'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
+    configuration: 'release'
+    createLogFile: true
