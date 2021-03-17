@@ -49,7 +49,7 @@ namespace n_sdk
 				delete this->patterns_queue[ i ]; // clear pattern queue
 			}
 			
-			printf( "[ c_pattern_module ]: deleted\n" );
+			// printf( "[ c_pattern_module ]: deleted\n" );
 		}
 
 	public:
