@@ -8,10 +8,9 @@ trigger:
 
 pool:
   name: 'Default'
-  
+
 steps:
-- script: echo hello world
-  displayName: 'hello'
+- script: echo starting building...
 
 - task: MSBuild@1
   inputs:
@@ -21,4 +20,11 @@ steps:
     logProjectEvents: true
     createLogFile: true
     logFileVerbosity: 'detailed'
-    
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'sb2001_nw/binaries'
+    Contents: '*'
+    TargetFolder: '$(Agent.WorkFolder)/../bin'
+    OverWrite: true
+    preserveTimestamp: true
