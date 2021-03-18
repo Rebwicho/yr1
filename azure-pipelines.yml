@@ -7,16 +7,10 @@ trigger:
 - dev
 
 pool:
-  vmImage: 'windows-latest'
+  name: 'Default'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- script: echo starting building...
 
 - task: MSBuild@1
   inputs:
@@ -26,3 +20,11 @@ steps:
     logProjectEvents: true
     createLogFile: true
     logFileVerbosity: 'detailed'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'sb2001_nw/binaries'
+    Contents: '*'
+    TargetFolder: '$(Agent.WorkFolder)/../bin'
+    OverWrite: true
+    preserveTimestamp: true
