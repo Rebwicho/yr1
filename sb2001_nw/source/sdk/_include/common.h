@@ -10,9 +10,17 @@
 #include <thread>
 #include <chrono>
 
+#include <iomanip>
+#include <ctime>
+//#include <format> // not implemented till c++20
+
 #include <string>
 
 #include <deque>
+
+#include <functional>
+
+#include <iostream>
 
 #include "singleton.h"
 
@@ -21,5 +29,7 @@ typedef unsigned __int16 u16;
 typedef unsigned __int32 u32;
 
 typedef unsigned long ul32;
+
+typedef void* abyss; // yeah why not
 
 #endif // COMMON_H
