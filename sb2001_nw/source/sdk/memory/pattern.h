@@ -32,36 +32,36 @@ namespace n_sdk
 			u32 offset = 0;
 			bool is_pure = 0;
 			bool find_one = 0;
+
+			std::function< bool( ) > m_f_on_end = std::function< bool( ) >();
 		};
 		
 	public:
 		c_pattern_module( u32 start_address )
-			: m_start_addres( start_address )
-		{
-			printf( "[ c_pattern_module ]: created, start_address: %#x\n", this->m_start_addres );
-		}
+			: m_start_addres( start_address ) { } 
 
-		~c_pattern_module( )
-		{
-			for ( u32 i = 0; i < this->patterns_queue.size(  ); i++ )
-			{
-				printf( "[ c_pattern_module!%#x ]: deleting %s\n", this->m_start_addres, this->patterns_queue[ i ]->name.c_str( ) );
-				delete this->patterns_queue[ i ]; // clear pattern queue
-			}
-			
-			// printf( "[ c_pattern_module ]: deleted\n" );
-		}
-
+		c_pattern_module( const std::string& module_name )
+			: m_start_addres( handle_name( module_name ) ) { }
 	public:
-		s_pattern* pat_call( std::string name, std::deque< BYTE > pattern, u32 offset );
-		s_pattern* pat_pure( std::string name, std::deque< BYTE > pattern, u32 offset );
+		s_pattern& pat_call( std::string name, std::deque< BYTE > pattern, u32 offset );
+		s_pattern& pat_pure( std::string name, std::deque< BYTE > pattern, u32 offset );
 
 		bool process_queue( );
 		//bool execute( );
 
+		auto get_module_name( ) -> std::string;
+	
 	private:
-		std::deque< s_pattern* > patterns_queue;
+		u32 handle_name( const std::string& module_name )
+		{
+			this->m_module_name = module_name;
+			return ( u32 )GetModuleHandleA( this->m_module_name.c_str( ) );
+		}
+	
+	private:
+		std::deque< s_pattern > patterns_queue;
 
+		std::string m_module_name = "";
 		u32 m_start_addres = 0;
 	};
 }
