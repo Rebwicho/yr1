@@ -147,7 +147,7 @@ u32 n_game::n_security::c_anti_debug::byte_search( std::deque<u8> bytes_to_find 
 	if ( first_match == 0x0 )
 	{
 		printf( "[ c_anti_debug::byte_search ]: failed to find [ " );
-		for ( auto byte : a1 ) printf( "%c ", byte ); printf( "]\n" );
+		for ( auto byte : a1 ) printf( "%hhx ", byte ); printf( "]\n" );
 	}
 
 	return first_match;
