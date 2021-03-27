@@ -1,6 +1,6 @@
 #include <common.h>
 
-#include "core/procedures/initialization.h"
+void on_attach( void* handle );
 
 int __stdcall DllMain( void* handle, ul32 call_reason, void* )
 {
@@ -10,10 +10,8 @@ int __stdcall DllMain( void* handle, ul32 call_reason, void* )
 		{
 			DisableThreadLibraryCalls( ( HMODULE )handle ); // disable thread attach / detach shit
 
-			n_core::c_initialization::get( ).set_handle( ( u32 )handle );
-			
-			std::thread initialization_start( &n_core::c_initialization::main_thread, 
-				&n_core::c_initialization::get( ) ); initialization_start.detach( );
+			// spawn thread and detach from new thread
+			std::thread on_attach_thread( on_attach, handle ); on_attach_thread.detach( );
 			
 			break;
 		}
@@ -21,5 +19,5 @@ int __stdcall DllMain( void* handle, ul32 call_reason, void* )
 		default: break;
 	}
 
-	return 1;
+	return 1; // yeet 1 we only care about dll_process_attach
 }
