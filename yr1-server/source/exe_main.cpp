@@ -13,27 +13,11 @@ class c_connection
 {
 private: tcp::socket m_socket;
 public:
-    //c_connection( asio::io_context& io_context, const __int32 connection_id )
-    //    : m_socket( io_context ), m_connection_id( connection_id )
-    //{
-
-    //}
-    //c_connection( asio::io_context& io_context, std::function< void( __int32 ) > ferror_callback)
-    //    : m_socket( io_context ), m_connection_id( m_static_id++ ), m_ferror_callback( ferror_callback )
-    //{
-
-    //}
-
     c_connection( tcp::socket socket )
         : m_socket( std::move( socket ) ), m_connection_id( m_static_id++ )
     {
 
     }
-
-    //~c_connection( )
-    //{
-    //    std::cout << "destructing\n";
-    //}
 
 public:
     tcp::socket& socket( )
@@ -48,15 +32,12 @@ public:
 public:
     void on_connect( )
     {
-        //m_socket.connect( tcp::endpoint( tcp::v4( ), main_port ) );
         std::cout << "log: new connection with id: " << m_connection_id << std::endl;
 
         std::string on_connect_message = "welcome";
 
-        // send welcome to connection
         a_write( on_connect_message );
 
-        // wait for data
         a_read( );
     }
 
@@ -69,7 +50,6 @@ public:
             [ & ]( const asio::error_code& error_lamb, std::size_t bytes_transferred_lamb ) {
                 if ( error_lamb )
                 {
-                    //std::cerr << "error: " << error_lamb.message( ) << std::endl;
                     on_error( error_lamb );
                     return;
                 }
@@ -83,7 +63,6 @@ public:
             [ & ]( const asio::error_code& error_lamb, std::size_t bytes_transferred_lamb ) {
                 if ( error_lamb )
                 {
-                    //std::cerr << "error: " << error_lamb.message( ) << std::endl;
                     on_error( error_lamb );
                     return;
                 }
@@ -105,16 +84,11 @@ public:
 
     void disconnect( )
     {
-        // delete self from queue
-        //m_connections.erase( m_this_it );
-        //c_tcp_server::instance( ).disconnect( m_connection_id );
-
         a_write( "disconnect" );
 
         std::cout << "log: disconnecting " << m_connection_id << std::endl;
         m_socket.close( );
         m_ferror_callback( m_connection_id );
-        //delete this;
     }
 
     void set_error_callback( std::function< void( __int32 ) > ferror_callback )
@@ -150,7 +124,6 @@ private:
         std::cerr << "error[ " << m_connection_id << " ]: " << error.message( ) << std::endl;
         m_socket.close( );
         m_ferror_callback( m_connection_id );
-        //disconnect( );
     }
 
 private:
@@ -233,9 +206,7 @@ int main( int argc, char* argv[ ] )
 {
     try
     {
-        //c_tcp_server::instance( ).start_accepting( );
         c_tcp_server::get( ).run( );
-        //std::cout << "test" << std::endl;
     }
     catch ( std::exception& e )
     {
