@@ -3,12 +3,19 @@
 
 namespace n_sdk::n_enum
 {
-	enum e_state
+	enum class e_state
 	{
 		started,
 		waiting,
+		working,
 		failed,
-		success
+		success,
+		
+		idle,
+		warning,
+		error,
+	
+		exit,
 	};
 }
 
