@@ -26,6 +26,11 @@ void n_sdk::c_console::init_streams( )
 	freopen( "conout$", "w", stderr );
 	freopen( "conout$", "w", stdout );
 	freopen( "conin$", "r", stdin );
+	
+	HANDLE hOut = GetStdHandle( STD_OUTPUT_HANDLE );
+	DWORD dwMode = 0; GetConsoleMode( hOut, &dwMode );
+	dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+	SetConsoleMode( hOut, dwMode );
 }
 
 void n_sdk::c_console::free_streams( )
