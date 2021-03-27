@@ -13,6 +13,8 @@ namespace n_sdk
 			abyss m_location = nullptr;			
 			abyss m_hook = nullptr;
 			abyss m_original = nullptr;
+
+			bool m_enabled = 0;
 		};
 
 		enum class e_hook_action
@@ -24,11 +26,11 @@ namespace n_sdk
 	public:
 		static s_hook make_hook( const std::string& hook_name, u32 location, abyss hook, abyss original );
 		
-		static bool enable( const s_hook& hook );
-		static bool disable( const s_hook& hook );
+		static bool enable( s_hook& hook );
+		static bool disable( s_hook& hook );
 		static bool is_valid( const s_hook& hook );
 
-		static bool do_action( const s_hook& hook, const e_hook_action action );
+		static bool do_action( s_hook& hook, e_hook_action action );
 		
 		static bool minhook_start( );
 		static bool minhook_end( );

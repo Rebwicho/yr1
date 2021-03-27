@@ -16,10 +16,10 @@ bool n_sdk::c_hooking::minhook_end( )
 
 n_sdk::hook_t n_sdk::c_hooking::make_hook( const std::string& hook_name, u32 location, abyss hook, abyss original )
 {	
-	return n_sdk::hook_t { hook_name,  ( abyss )location, hook, original };
+	return n_sdk::hook_t { hook_name, ( abyss )location, hook, original };
 }
 
-bool n_sdk::c_hooking::enable( const s_hook& hook )
+bool n_sdk::c_hooking::enable( n_sdk::hook_t& hook )
 {
 	// check if hook is valid
 	if ( n_sdk::c_hooking::is_valid( hook ) == 0 )
@@ -28,40 +28,26 @@ bool n_sdk::c_hooking::enable( const s_hook& hook )
 	if ( ( MH_CreateHook( hook.m_location, hook.m_hook, 
 							reinterpret_cast< abyss* >( hook.m_original ) ) != MH_OK )
 		|| ( MH_EnableHook( hook.m_location ) != MH_OK ) )
-	{
-		//printf( "[ sb2001_nw ]: hooks@failed/function/%s> %#x -> %#x { %#x } &failed\n", 
-		//	hook.m_hook_name.c_str( ), ( u32 )hook.m_location,
-		//	( u32 )hook.m_hook, ( u32 )hook.m_original );
 		return 0;
-	}
 
-	//printf( "[ sb2001_nw ]: hooks@waiting/function/%s> %#x -> %#x { %#x } &enabled\n",
-	//	hook.m_hook_name.c_str( ), ( u32 )hook.m_location, 
-	//	( u32 )hook.m_hook, ( u32 )hook.m_original );
+	hook.m_enabled = 1;
 	return 1;
 }
 
-bool n_sdk::c_hooking::disable( const s_hook& hook )
+bool n_sdk::c_hooking::disable( n_sdk::hook_t& hook )
 {
 	if ( n_sdk::c_hooking::is_valid( hook ) == 0 )
 		return 0;
 
 	if ( MH_DisableHook( hook.m_location ) != MH_OK ) 
-	{
-		//	printf( "[ sb2001_nw ]: hooks@waiting - hooking...\n" );
-		//printf( "[ sb2001_nw ]: hooks@failed/function/%s> %#x -> %#x { %#x } &failed\n",
-		//	hook.m_hook_name.c_str( ), ( u32 )hook.m_location,
-		//	( u32 )hook.m_hook, ( u32 )hook.m_original );
 		return 0;
-	}
 
-	//printf( "[ sb2001_nw ]: hooks@waiting/function/%s> %#x -> %#x { %#x } &disabled\n",
-	//	hook.m_hook_name.c_str( ), ( u32 )hook.m_location,
-	//	( u32 )hook.m_hook, ( u32 )hook.m_original );
+	hook.m_enabled = 0;
+
 	return 1;
 }
 
-bool n_sdk::c_hooking::is_valid( const s_hook& hook )
+bool n_sdk::c_hooking::is_valid( const n_sdk::hook_t& hook )
 {
 	// hook is valid when:
 	//  - hook_name != f_null
@@ -77,7 +63,8 @@ bool n_sdk::c_hooking::is_valid( const s_hook& hook )
 	return 1;
 }
 
-bool n_sdk::c_hooking::do_action( const s_hook& hook, const e_hook_action action )
+bool n_sdk::c_hooking::do_action( n_sdk::hook_t& hook, e_hook_action action )
 {
+	// we need to check if hook was even enabled to disable it
 	return ( bool ) action ? enable( hook ) : disable( hook );
 }
