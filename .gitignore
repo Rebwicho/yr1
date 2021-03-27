@@ -342,5 +342,6 @@ healthchecksdb
 /sb2001_nw/binaries
 /sb2001_nw/external
 /sb2001_ldr/binaries
-/sb2001_ldr/external/BlackBone
+/sb2001_ldr/external
+/yr1-server/external
 /binaries
