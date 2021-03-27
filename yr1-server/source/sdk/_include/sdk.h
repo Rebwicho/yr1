@@ -10,4 +10,7 @@
 //#include "../memory/pattern.h"
 //#include "../memory/hooking.h"
 
+#include "../network/connection.h"
+#include "../network/session.h"
+
 #endif // SDK_H

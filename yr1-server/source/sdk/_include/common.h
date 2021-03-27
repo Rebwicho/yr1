@@ -8,6 +8,7 @@
 
 #include <thread>
 #include <chrono>
+#include <mutex>
 
 #include <iomanip>
 #include <ctime>
@@ -27,6 +28,12 @@
 //#define ASIO_SEPARATE_COMPILATION
 #define _WIN32_WINNT 0x0A00
 #include <asio.hpp>
+
+#ifdef _DEBUG
+#pragma comment(lib, "asio-dbg-x86.lib")
+#else
+#pragma comment(lib, "asio-x86.lib")
+#endif
 
 #include <Windows.h>
 
