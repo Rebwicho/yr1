@@ -75,31 +75,39 @@
     <OutDir>$(MSBuildProjectDirectory)\binaries\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
     <TargetName>$(MSBuildProjectName)_$(PlatformTarget)_$(Configuration)</TargetName>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>intermediate\$(Configuration)\</IntDir>
     <TargetName>$(MSBuildProjectName)_$(PlatformTarget)_$(Configuration)</TargetName>
     <OutDir>$(SolutionDir)binaries\</OutDir>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ASIO_SEPARATE_COMPILATION;ASIO_DYN_LINK;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\source\sdk\_include;$(MSBuildProjectDirectory)\external\asio-1.18.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,6 +120,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\source\sdk\_include;$(MSBuildProjectDirectory)\external\asio-1.18.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\source\sdk\_include;$(MSBuildProjectDirectory)\external\asio-1.18.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,12 +163,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\core\procedures\networker.cpp" />
+    <ClCompile Include="source\core\server\sessions.cpp" />
+    <ClCompile Include="source\core\server\server.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
+    <ClCompile Include="source\sdk\network\connection.cpp" />
+    <ClCompile Include="source\sdk\network\session.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\core\procedures\networker.h" />
+    <ClInclude Include="source\core\server\sessions.h" />
+    <ClInclude Include="source\core\server\server.h" />
+    <ClInclude Include="source\sdk\network\connection.h" />
+    <ClInclude Include="source\sdk\network\session.h" />
     <ClInclude Include="source\sdk\_include\common.h" />
     <ClInclude Include="source\sdk\_include\sdk.h" />
     <ClInclude Include="source\sdk\_include\singleton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="external\asio-1.18.1\asio-dbg-x86.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
