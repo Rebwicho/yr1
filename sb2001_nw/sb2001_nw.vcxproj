@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>$(MSBuildProjectName)_$(PlatformTarget)_$(Configuration)</TargetName>
-    <OutDir>$(MSBuildProjectDirectory)\binaries\</OutDir>
+    <TargetName>sb2001_nt_$(PlatformTarget)_$(Configuration)</TargetName>
+    <OutDir>$(SolutionDir)binaries\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
     <IncludePath>$(MSBuildProjectDirectory)\external\;$(MSBuildProjectDirectory)\source\sdk\_include\;$(IncludePath)</IncludePath>
     <LibraryPath>D:\system_folders\documents\yr1\sb2001_nw\external;$(LibraryPath)</LibraryPath>
@@ -103,7 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -119,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
@@ -158,22 +158,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\core\memory.cpp" />
+    <ClCompile Include="source\core\memory\hooks.cpp" />
+    <ClCompile Include="source\core\memory\offsets.cpp" />
+    <ClCompile Include="source\core\procedures\initialization.cpp" />
     <ClCompile Include="source\dll_main.cpp" />
     <ClCompile Include="source\game\security\anti_debug.cpp" />
     <ClCompile Include="source\sdk\memory\hooking.cpp" />
     <ClCompile Include="source\sdk\memory\pattern.cpp" />
-    <ClCompile Include="source\sdk\sdk.cpp" />
+    <ClCompile Include="source\sdk\utils\basic_log.cpp" />
     <ClCompile Include="source\sdk\utils\console.cpp" />
+    <ClCompile Include="source\sdk\utils\file_log.cpp" />
+    <ClCompile Include="source\sdk\utils\time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\minhook\MinHook.h" />
     <ClInclude Include="source\core\hooks\hooks.h" />
     <ClInclude Include="source\core\memory.h" />
+    <ClInclude Include="source\core\memory\hooks.h" />
+    <ClInclude Include="source\core\memory\offsets.h" />
+    <ClInclude Include="source\core\procedures\initialization.h" />
     <ClInclude Include="source\game\security\anti_debug.h" />
     <ClInclude Include="source\sdk\memory\hooking.h" />
     <ClInclude Include="source\sdk\memory\pattern.h" />
+    <ClInclude Include="source\sdk\utils\basic_log.h" />
     <ClInclude Include="source\sdk\utils\console.h" />
+    <ClInclude Include="source\sdk\utils\enum_file.h" />
+    <ClInclude Include="source\sdk\utils\file_log.h" />
+    <ClInclude Include="source\sdk\utils\time.h" />
     <ClInclude Include="source\sdk\_include\common.h" />
     <ClInclude Include="source\sdk\_include\game.h" />
     <ClInclude Include="source\sdk\_include\sdk.h" />

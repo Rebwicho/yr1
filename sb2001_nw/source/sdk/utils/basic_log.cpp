@@ -1,6 +1,6 @@
 #include <common.h>
 
-#include "time.h"
+#include "./time.h"
 #include "basic_log.h"
 
 // todo: move some of those to .h as inline
