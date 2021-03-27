@@ -1,0 +1,30 @@
+# Universal Windows Platform
+# Build a Universal Windows Platform project using Visual Studio.
+# Add steps that test and distribute an app, save build artifacts, and more:
+# https://aka.ms/yaml
+
+trigger:
+- dev
+
+pool:
+  name: 'Default'
+
+steps:
+- script: echo starting building...
+
+- task: MSBuild@1
+  inputs:
+    solution: '*.sln'
+    platform: 'x86'
+    configuration: 'release'
+    logProjectEvents: true
+    createLogFile: true
+    logFileVerbosity: 'detailed'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'sb2001_nw/binaries'
+    Contents: '*'
+    TargetFolder: '$(Agent.WorkFolder)/../bin'
+    OverWrite: true
+    preserveTimestamp: true
