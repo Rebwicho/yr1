@@ -17,24 +17,32 @@ namespace sdk
 		}
 	
 	public:
-		//void start_connection( asio::ip::tcp )
-		//void connect( );
-		void disconnect( );
-		
-		void breath( );
+		void start( );
+		void stop( );
 
-		void on_connect( );
-	protected:
+	protected: /* self */
 		void on_read( u32 size );
 		void on_error( const asio::error_code& error );
 
+		void breath( );
+
+	protected: /* auth */
+
+	
+	protected: /* receiver */
+
+	
+	protected: /* sender */
+
+	
 	public:
 		u32 m_sid = 0;
 
 	private:
-		//sdk::c_connection m_connection;
-		tcp::socket m_socket;
 		u8 m_recv_buffer[ 512 ];
+
+	private:
+		tcp::socket m_socket;
 	};
 }
 
