@@ -34,7 +34,7 @@ namespace sdk
 	private:
 		//sdk::c_connection m_connection;
 		tcp::socket m_socket;
-		char m_recv_buffer[ 512 ];
+		u8 m_recv_buffer[ 512 ];
 	};
 }
 
