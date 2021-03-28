@@ -21,8 +21,9 @@ namespace core
 		void start_accepting( );
 
 		void on_accept( tcp::socket peer );
-
 		void on_error( const asio::error_code& error );
+
+		void run_context( );
 
 	private:
 		asio::io_context m_io_context;
