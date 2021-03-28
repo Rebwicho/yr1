@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\core\procedures\networker.cpp" />
+    <ClCompile Include="source\core\procedures\receiver.cpp" />
     <ClCompile Include="source\core\server\sessions.cpp" />
     <ClCompile Include="source\core\server\server.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
@@ -172,10 +173,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\core\procedures\networker.h" />
+    <ClInclude Include="source\core\procedures\receiver.h" />
     <ClInclude Include="source\core\server\sessions.h" />
     <ClInclude Include="source\core\server\server.h" />
+    <ClInclude Include="source\core\server\session\authenticator.h" />
+    <ClInclude Include="source\core\server\session\receiver.h" />
+    <ClInclude Include="source\core\server\session\sender.h" />
     <ClInclude Include="source\sdk\network\connection.h" />
+    <ClInclude Include="source\sdk\network\packets.h" />
     <ClInclude Include="source\sdk\network\session.h" />
+    <ClInclude Include="source\sdk\utils\enum_file.h" />
     <ClInclude Include="source\sdk\_include\common.h" />
     <ClInclude Include="source\sdk\_include\sdk.h" />
     <ClInclude Include="source\sdk\_include\singleton.h" />
