@@ -35,36 +35,21 @@ void core::c_receiver::handler( std::deque<u8> recived_bytes )
 		
 		case sdk::enums::e_packet_type::test_recv1: {
 			auto packet = convert_bytes< packet::test_recv_t1 >( recived_bytes );
-			std::cout << "test_value: " << packet.test_value << std::endl;
-
-			//dump_packet_mem( ( u32 )&packet, sizeof( packet ) );
 			
 		} break;
 		case sdk::enums::e_packet_type::test_recv2:
 		{
 			auto packet = convert_bytes< packet::test_recv_t2 >( recived_bytes );
-			std::cout << "test_value: " << packet.test_value << std::endl;
-			std::cout << "test_value2: " << packet.test_value2 << std::endl;
-			//dump_packet_mem( ( u32 )&packet, sizeof( packet ) );
 
 		} break;
 		case sdk::enums::e_packet_type::test_recv3:
 		{
 			auto packet = convert_bytes< packet::test_recv_t3 >( recived_bytes );
-			std::cout << "test_value: " << packet.test_value << std::endl;
-			std::cout << "test_value2: " << packet.test_value2 << std::endl;
-			std::cout << "test_value3: " << packet.test_value3 << std::endl;
-			//dump_packet_mem( ( u32 )&packet, sizeof( packet ) );
 
 		} break;
 		case sdk::enums::e_packet_type::test_recv4:
 		{
 			auto packet = convert_bytes< packet::test_recv_t4 >( recived_bytes );
-			std::cout << "test_value: " << packet.test_value << std::endl;
-			std::cout << "test_value2: " << packet.test_value2 << std::endl;
-			std::cout << "test_value3: " << packet.test_value3 << std::endl;
-			std::cout << "test_value4: " << packet.test_value4 << std::endl;
-			//dump_packet_mem( ( u32 )&packet, sizeof( packet ) );
 
 		} break;
 		default: break;
