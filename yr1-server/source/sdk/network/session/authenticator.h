@@ -1,6 +1,0 @@
-#ifndef AUTHENTICATOR_H
-#define AUTHENTICATOR_H
-
-
-
-#endif // AUTHENTICATOR_H

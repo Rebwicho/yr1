@@ -2,7 +2,7 @@
 
 #include "core/server/server.h"
 
-//using asio::ip::tcp;
+using asio::ip::tcp;
 
 int main( int argc, char* argv[ ] )
 {
