@@ -18,7 +18,7 @@ private:
 
 protected:
 	c_singleton( ) { }
-	~c_singleton( ) { }
+	~c_singleton( ) { }	
 };
 
 #endif // SINGLETON_H
