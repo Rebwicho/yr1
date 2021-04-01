@@ -1,7 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define WIN32_LEAN_AND_MEAN 
+#include "../../sdk/network/asio.h"
+
 #include <Windows.h>
 #undef WIN32_LEAN_AND_MEAN
 
@@ -18,6 +19,20 @@
 #include <array>
 
 #include <filesystem>
+
+
+#include <dwmapi.h>
+#include <windowsx.h>
+
+#include <imgui.h>
+#include <backends/imgui_impl_dx9.h>
+#include <backends/imgui_impl_win32.h>
+
+#include <d3d9.h>
+#pragma comment(lib, "d3d9.lib")
+
+#include <d3dx9.h>
+#pragma comment (lib, "d3dx9.lib")
 
 #include "singleton.h"
 

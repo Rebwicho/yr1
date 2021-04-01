@@ -1,8 +1,8 @@
 #include <common.h>
 #include <sdk.h>
 
-#include "core/loader/injectables.h"
-#include "core/loader/injection.h"
+#include "core/network/session.h"
+#include "core/gui/window.h"
 
 int main( int, char* )
 {
@@ -18,7 +18,25 @@ int main( int, char* )
 	n_core::c_injection::get( ).set_mode( n_core::injection_mode_t::manualmap );
 	n_core::c_injection::get( ).execute( );
 
-	getchar( );
+ */
+
+int main( int, char* )
+{
+	// network
+	n_core::c_session::get( ).start( 0xdead );
+	
+	
+	if ( n_core::c_window::get( ).create( ) == 0 )
+	{
+		std::cerr << "error: failed to create windows window " << GetLastError( ) << std::endl;
+		//getchar( );
+		//getchar( );
+		return 0;
+	}
+
+	n_core::c_window::get( ).run( );
+
+	//getchar( );
 	getchar( );
 	
 	return 1;
