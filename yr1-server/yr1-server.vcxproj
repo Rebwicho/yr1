@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{39b15f3e-e9e2-4269-9120-6ce1fbbc7e58}</ProjectGuid>
-    <RootNamespace>sb2001ldr</RootNamespace>
+    <ProjectGuid>{8fba9f70-5213-49f5-8b67-8fdb9b860011}</ProjectGuid>
+    <RootNamespace>yr1server</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -75,45 +75,39 @@
     <OutDir>$(MSBuildProjectDirectory)\binaries\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
     <TargetName>$(MSBuildProjectName)_$(PlatformTarget)_$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)source\sdk\_include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)external;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)binaries\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
     <TargetName>$(MSBuildProjectName)_$(PlatformTarget)_$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)source\sdk\_include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)external;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)binaries\</OutDir>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)external\3rd_party;$(ProjectDir)source\sdk\_include;$(ProjectDir)external;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)external\3rd_party;$(ProjectDir)source\sdk\_include;$(ProjectDir)external;$(IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Label="Vcpkg">
-    <VcpkgEnabled>false</VcpkgEnabled>
-    <VcpkgManifestInstall>false</VcpkgManifestInstall>
-    <VcpkgAutoLink>false</VcpkgAutoLink>
+    <LibraryPath>$(ProjectDir)external\asio-1.18.1;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ASIO_SEPARATE_COMPILATION;ASIO_DYN_LINK;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;$(ProjectDir)external\BlackBone\3rd_party;$(ProjectDir)external\BlackBone;$(ProjectDir)external\imgui-docking;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\source\sdk\_include;$(MSBuildProjectDirectory)\external\asio-1.18.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -122,17 +116,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\source\sdk\_include;$(MSBuildProjectDirectory)\external\asio-1.18.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;$(ProjectDir)external\BlackBone\3rd_party;$(ProjectDir)external\BlackBone;$(ProjectDir)external\imgui-docking;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,6 +136,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\source\sdk\_include;$(MSBuildProjectDirectory)\external\asio-1.18.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,9 +150,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WIN10_;NDEBUG;BLACKBONE_NO_TRACE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\source\sdk\_include;$(MSBuildProjectDirectory)\external\asio-1.18.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -166,60 +163,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="external\imgui-docking\backends\imgui_impl_dx9.cpp" />
-    <ClCompile Include="external\imgui-docking\backends\imgui_impl_win32.cpp" />
-    <ClCompile Include="external\imgui-docking\imgui.cpp" />
-    <ClCompile Include="external\imgui-docking\imgui_demo.cpp" />
-    <ClCompile Include="external\imgui-docking\imgui_draw.cpp" />
-    <ClCompile Include="external\imgui-docking\imgui_tables.cpp" />
-    <ClCompile Include="external\imgui-docking\imgui_widgets.cpp" />
-    <ClCompile Include="source\core\gui\view\login.cpp" />
-    <ClCompile Include="source\core\gui\view\panel.cpp" />
-    <ClCompile Include="source\core\gui\window.cpp" />
-    <ClCompile Include="source\core\loader\injectables.cpp" />
-    <ClCompile Include="source\core\loader\injection.cpp" />
-    <ClCompile Include="source\core\network\session.cpp" />
+    <ClCompile Include="source\core\procedures\networker.cpp" />
+    <ClCompile Include="source\core\procedures\receiver.cpp" />
+    <ClCompile Include="source\core\server\sessions.cpp" />
+    <ClCompile Include="source\core\server\server.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
-    <ClCompile Include="source\sdk\file\file_search.cpp" />
-    <ClCompile Include="source\sdk\file\file_type.cpp" />
-    <ClCompile Include="source\sdk\gui\controls\button.cpp" />
-    <ClCompile Include="source\sdk\gui\controls\input.cpp" />
-    <ClCompile Include="source\sdk\gui\status_bar.cpp" />
-    <ClCompile Include="source\sdk\memory\process_impl.cpp" />
-    <ClCompile Include="source\sdk\utils\time.cpp" />
+    <ClCompile Include="source\sdk\network\session.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="external\imgui-docking\backends\imgui_impl_dx9.h" />
-    <ClInclude Include="external\imgui-docking\backends\imgui_impl_win32.h" />
-    <ClInclude Include="external\imgui-docking\imconfig.h" />
-    <ClInclude Include="external\imgui-docking\imgui.h" />
-    <ClInclude Include="external\imgui-docking\imgui_internal.h" />
-    <ClInclude Include="external\imgui-docking\imstb_rectpack.h" />
-    <ClInclude Include="external\imgui-docking\imstb_textedit.h" />
-    <ClInclude Include="external\imgui-docking\imstb_truetype.h" />
-    <ClInclude Include="source\core\gui\view\panel.h" />
-    <ClInclude Include="source\core\gui\view\login.h" />
-    <ClInclude Include="source\core\gui\window_view.h" />
-    <ClInclude Include="source\core\gui\window.h" />
-    <ClInclude Include="source\core\loader\injectables.h" />
-    <ClInclude Include="source\core\loader\injection.h" />
-    <ClInclude Include="source\core\network\session.h" />
-    <ClInclude Include="source\sdk\file\file_search.h" />
-    <ClInclude Include="source\sdk\file\file_type.h" />
-    <ClInclude Include="source\sdk\gui\controls\button.h" />
-    <ClInclude Include="source\sdk\gui\controls\input.h" />
-    <ClInclude Include="source\sdk\gui\fonts.h" />
-    <ClInclude Include="source\sdk\gui\status_bar.h" />
-    <ClInclude Include="source\sdk\gui\view.h" />
-    <ClInclude Include="source\sdk\memory\process_impl.h" />
+    <ClInclude Include="source\core\procedures\networker.h" />
+    <ClInclude Include="source\core\procedures\receiver.h" />
+    <ClInclude Include="source\core\server\sessions.h" />
+    <ClInclude Include="source\core\server\server.h" />
+    <ClInclude Include="source\sdk\network\session\authenticator.h" />
+    <ClInclude Include="source\sdk\network\session\receiver.h" />
+    <ClInclude Include="source\sdk\network\session\sender.h" />
+    <ClInclude Include="source\sdk\network\packets.h" />
+    <ClInclude Include="source\sdk\network\session.h" />
     <ClInclude Include="source\sdk\utils\enum_file.h" />
-    <ClInclude Include="source\sdk\utils\time.h" />
     <ClInclude Include="source\sdk\_include\common.h" />
     <ClInclude Include="source\sdk\_include\sdk.h" />
     <ClInclude Include="source\sdk\_include\singleton.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="external\imgui-docking\LICENSE.txt" />
+    <Library Include="external\asio-1.18.1\asio-dbg-x86.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,7 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
-#include <BlackBone/BlackBone/Process/Process.h>
+#include <BlackBone/Process/Process.h>
 
 #ifdef _DEBUG
 #pragma comment(lib, "BlackBone/BlackBone-DBG.lib")
@@ -29,7 +29,7 @@ namespace n_sdk
 		static u32 get_pid( std::wstring process_name );
 
 	private:
-		blackbone::Process m_process_obj;
+		blackbone::Process m_process;
 		
 		std::wstring m_target_process_name = L"";
 		u32 m_target_pid = 0;
