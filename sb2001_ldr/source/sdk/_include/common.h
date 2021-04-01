@@ -4,7 +4,6 @@
 #include "../../sdk/network/asio.h"
 
 #include <Windows.h>
-#undef WIN32_LEAN_AND_MEAN
 
 #include <stdio.h>
 
@@ -19,7 +18,6 @@
 #include <array>
 
 #include <filesystem>
-
 
 #include <dwmapi.h>
 #include <windowsx.h>
@@ -41,5 +39,6 @@ typedef unsigned __int16 u16;
 typedef unsigned __int32 u32;
 
 typedef unsigned long ul32;
+typedef long l32;
 
 #endif // COMMON_H

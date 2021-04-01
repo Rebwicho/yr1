@@ -1,6 +1,7 @@
 #ifndef SESSION_H
 #define SESSION_H
 
+
 using asio::ip::tcp;
 
 namespace n_core
@@ -29,5 +30,6 @@ namespace n_core
 
 	};
 }
+
 
 #endif // SESSION_H

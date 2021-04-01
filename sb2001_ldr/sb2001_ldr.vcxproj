@@ -168,20 +168,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="external\imgui-docking\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="external\imgui-docking\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="external\imgui-docking\imgui.cpp" />
+    <ClCompile Include="external\imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="external\imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="external\imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="external\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="source\core\gui\view\login.cpp" />
+    <ClCompile Include="source\core\gui\view\panel.cpp" />
+    <ClCompile Include="source\core\gui\window.cpp" />
     <ClCompile Include="source\core\loader\injectables.cpp" />
     <ClCompile Include="source\core\loader\injection.cpp" />
     <ClCompile Include="source\core\network\session.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
     <ClCompile Include="source\sdk\file\file_search.cpp" />
     <ClCompile Include="source\sdk\file\file_type.cpp" />
+    <ClCompile Include="source\sdk\gui\controls\button.cpp" />
+    <ClCompile Include="source\sdk\gui\controls\input.cpp" />
+    <ClCompile Include="source\sdk\gui\status_bar.cpp" />
     <ClCompile Include="source\sdk\memory\process_impl.cpp" />
+    <ClCompile Include="source\sdk\utils\time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="external\imgui-docking\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="external\imgui-docking\backends\imgui_impl_win32.h" />
+    <ClInclude Include="external\imgui-docking\imconfig.h" />
+    <ClInclude Include="external\imgui-docking\imgui.h" />
+    <ClInclude Include="external\imgui-docking\imgui_internal.h" />
+    <ClInclude Include="external\imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="external\imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="external\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="source\core\gui\view\panel.h" />
+    <ClInclude Include="source\core\gui\view\login.h" />
+    <ClInclude Include="source\core\gui\window_view.h" />
+    <ClInclude Include="source\core\gui\window.h" />
     <ClInclude Include="source\core\loader\injectables.h" />
     <ClInclude Include="source\core\loader\injection.h" />
     <ClInclude Include="source\core\network\session.h" />
     <ClInclude Include="source\sdk\file\file_search.h" />
     <ClInclude Include="source\sdk\file\file_type.h" />
+    <ClInclude Include="source\sdk\gui\controls\button.h" />
+    <ClInclude Include="source\sdk\gui\controls\input.h" />
+    <ClInclude Include="source\sdk\gui\fonts.h" />
+    <ClInclude Include="source\sdk\gui\status_bar.h" />
+    <ClInclude Include="source\sdk\gui\view.h" />
     <ClInclude Include="source\sdk\memory\process_impl.h" />
     <ClInclude Include="source\sdk\network\asio.h" />
     <ClInclude Include="source\sdk\utils\enum_file.h" />
@@ -189,6 +220,9 @@
     <ClInclude Include="source\sdk\_include\common.h" />
     <ClInclude Include="source\sdk\_include\sdk.h" />
     <ClInclude Include="source\sdk\_include\singleton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="external\imgui-docking\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

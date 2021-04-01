@@ -1,6 +1,7 @@
 #include <common.h>
 #include <sdk.h>
 
+
 #include "core/network/session.h"
 #include "core/gui/window.h"
 
@@ -22,10 +23,12 @@
 
 int main( int, char* )
 {
+
 	// network
 	n_core::c_session::get( ).start( 0xdead );
 	
 	
+
 	if ( n_core::c_window::get( ).create( ) == 0 )
 	{
 		std::cerr << "error: failed to create windows window " << GetLastError( ) << std::endl;
@@ -38,6 +41,6 @@ int main( int, char* )
 
 	//getchar( );
 	getchar( );
-	
+
 	return 1;
 }
