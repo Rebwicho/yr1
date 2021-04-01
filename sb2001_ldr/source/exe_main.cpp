@@ -4,7 +4,7 @@
 #include "core/network/session.h"
 #include "core/gui/window.h"
 
-int main( int, char* )
+/* int main( int, char* )
 {
 	n_core::c_injectables::get( ).scan( );
 	std::wcout << "[ sb2001_ldr ]: select injectable: ";

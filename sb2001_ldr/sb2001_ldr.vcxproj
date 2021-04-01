@@ -170,6 +170,7 @@
   <ItemGroup>
     <ClCompile Include="source\core\loader\injectables.cpp" />
     <ClCompile Include="source\core\loader\injection.cpp" />
+    <ClCompile Include="source\core\network\session.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
     <ClCompile Include="source\sdk\file\file_search.cpp" />
     <ClCompile Include="source\sdk\file\file_type.cpp" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="source\core\loader\injectables.h" />
     <ClInclude Include="source\core\loader\injection.h" />
+    <ClInclude Include="source\core\network\session.h" />
     <ClInclude Include="source\sdk\file\file_search.h" />
     <ClInclude Include="source\sdk\file\file_type.h" />
     <ClInclude Include="source\sdk\memory\process_impl.h" />

@@ -33,6 +33,9 @@
     <ClCompile Include="source\core\loader\injection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\core\network\session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\sdk\_include\common.h">
@@ -59,71 +62,17 @@
     <ClInclude Include="source\core\loader\injection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\core\gui\window_view.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\core\gui\view\login.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\core\gui\view\panel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\imgui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\imconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\imgui_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\imstb_rectpack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\backends\imgui_impl_dx9.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\backends\imgui_impl_win32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\imstb_textedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\imgui-docking\imstb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\core\gui\window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\sdk\utils\time.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\sdk\gui\view.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\sdk\utils\enum_file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\sdk\gui\fonts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\sdk\gui\controls\input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\sdk\gui\controls\button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\sdk\gui\status_bar.h">
+    <ClInclude Include="source\sdk\network\asio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\core\network\session.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\sdk\network\asio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="external\imgui-docking\LICENSE.txt" />
   </ItemGroup>
 </Project>
