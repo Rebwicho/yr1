@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include "../../sdk/network/asio.h"
+
 #include <Windows.h>
 
 #include <stdio.h>

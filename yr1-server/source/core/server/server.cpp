@@ -39,7 +39,7 @@ void core::c_server::on_accept( tcp::socket peer )
 {
 	//auto& new_session = 
 	// new_session.on_connect( );
-	core::c_sessions::get( ).add( std::move( peer ) ).on_connect( );
+	core::c_sessions::get( ).add( std::move( peer ) ).start( );
 
 	std::cout << "log: accepted new connection, current session count: " << core::c_sessions::get( ).size( ) << std::endl;
 
