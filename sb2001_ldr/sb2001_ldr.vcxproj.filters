@@ -33,6 +33,9 @@
     <ClCompile Include="source\core\loader\injection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\core\network\session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="external\imgui-docking\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
