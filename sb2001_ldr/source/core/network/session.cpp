@@ -7,7 +7,7 @@ void n_core::c_session::send( std::vector<u8>& packet )
 {
 	m_send_queue.push_back( packet );
 }
-std::vector<u8> n_core::c_session::sync_send( std::vector<u8> packet )
+std::vector<u8> n_core::c_session::sync_send( std::vector<u8>& packet )
 {
 	u8 sync_recv_buffer[ 512 ];
 	asio::error_code error;
@@ -23,9 +23,8 @@ std::vector<u8> n_core::c_session::sync_send( std::vector<u8> packet )
 	{
 		on_error( error ); return std::vector<u8>( );
 	}
-
-	return std::vector<u8>( (u8*)&sync_recv_buffer, ( u8* )&sync_recv_buffer + recived_size );
-	//return std::vector<u8>( );
+	
+	return packet::convert::to_bytes( &sync_recv_buffer, recived_size );
 }
 
 void n_core::c_session::start( u32 port )

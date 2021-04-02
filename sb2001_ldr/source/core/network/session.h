@@ -1,16 +1,10 @@
 #ifndef SESSION_H
 #define SESSION_H
 
-
 using asio::ip::tcp;
 
 namespace n_core
 {
-    //asio::io_context io_context;
-
-    //tcp::socket s( io_context );
-    //tcp::resolver resolver( io_context );
-    //asio::connect( s, resolver.resolve( "localhost", std::to_string( main_port ) ) );
 
 	class c_session : public c_singleton< c_session >
 	{
@@ -22,7 +16,7 @@ namespace n_core
 		void send( std::vector< u8 >& packet );
 		
 		// todo: upgrade it to take lambda as param and spawn thread itself
-		std::vector< u8 > sync_send( std::vector< u8 > packet ); // sync_send sends packet to server
+		std::vector< u8 > sync_send( std::vector< u8 >& packet ); // sync_send sends packet to server
 		// and waits for response then returns data from server
 		// example usage: on button click create new detached thread with that function
 		

@@ -77,29 +77,17 @@ void gui::view::c_login::make( )
 		std::cout << "log: connect button clicked" << std::endl;
 		gui::c_status_bar::get( ).set( "connecting..." );
 
-		// lets spawn thread that waits for 3s and then calls on_login
-		// to simulate login process for now
 		std::thread( [ & ]( ) {
-			//static u32 wait_time = 0;
-			//if ( wait_time == 0 ) wait_time = GetTickCount( ) + 2000;
-
-			//while ( GetTickCount( ) < wait_time )
-			//	std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
 
 			packet::login login_packet;
 			memcpy( &login_packet.login_buffer, &login_buffer, sizeof( login_packet.login_buffer ) );
 			memcpy( &login_packet.password_buffer, &password_buffer, sizeof( login_packet.password_buffer ) );
-			std::vector< u8 > login_as_bytes( ( u8* )&login_packet, ( u8* )&login_packet + sizeof( login_packet ) );
 
-			//auto result_data = n_core::c_session::get( ).sync_send( login_as_bytes );
-			
+			auto login_as_bytes = packet::convert::to_bytes( &login_packet, sizeof( packet::login ) );
+
 			auto bytes_recived = n_core::c_session::get( ).sync_send( login_as_bytes );
-			auto login_response = packet::login_response( );// core::c_receiver::convert_bytes< packet::login_response >( bytes_recived );
-			std::memcpy( &bytes_recived, bytes_recived.data( ), sizeof( login_response ) );
-			//std::memcpy( &result_data, &bytes_recived[ 0 ], sizeof( packet::login_result ) );
+			auto login_response = packet::convert::from_bytes< packet::login_response >( bytes_recived );
 			
-			//auto result_data = core::c_receiver::convert_bytes< packet::login_result >( bytes_recived );
-
 			if ( login_response.result == 0 )
 			{
 				gui::c_status_bar::get( ).set( "invalid, try again" );
@@ -108,37 +96,10 @@ void gui::view::c_login::make( )
 			{
 				gui::c_status_bar::get( ).set( ( std::string( "welcome, " ) + std::string( login_buffer ) ).c_str( ) );
 				on_login( );
-			}		
+			}
+
 		} ).detach( );
 	}
-
-	//if ( m_bdummy.make( "send dummy" ) )
-	//{
-	//	std::cout << "log: send dummy button clicked" << std::endl;
-
-	//	//dump_packet_mem( ( u32 )&login_buffer, sizeof( login_buffer ) );
-	//	//dump_packet_mem( ( u32 )&password_buffer, sizeof( password_buffer ) );
-
-	//	packet::login login_packet;
-	//	memcpy( &login_packet.login_buffer, &login_buffer, sizeof( login_packet.login_buffer ) );
-	//	memcpy( &login_packet.password_buffer, &password_buffer, sizeof( login_packet.password_buffer ) );
-	//	std::vector< u8 > login_as_bytes( ( u8* )&login_packet, ( u8* )&login_packet + sizeof( login_packet ) );
-
-	//	//login_packet.login_buffer = login_buffer;
-	//	//std::cout << "log: login_packet.login_buffer: " << login_packet.login_buffer << std::endl;
-	//
-	//	//std::cout << "log: login_packet.password_buffer: " << login_packet.password_buffer << std::endl;
-
-	//	//dump_packet_mem( ( u32 )&login_packet, sizeof( login_packet ) );
-
-
-	//	//for ( auto& byte : login_as_bytes )
-	//	//	printf( "%#hhx ", byte );
-	//	//std::cout << std::endl;
-
-	//	n_core::c_session::get( ).send( login_as_bytes );
-	//}
-
 }
 
 bool gui::view::c_login::is_fulfilled( )

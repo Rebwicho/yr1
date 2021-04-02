@@ -19,10 +19,9 @@
 #include "../gui/view.h"
 
 #include "../network/packets.h"
-#include "../network/receiver.h"
+#include "../network/packet.h"
 
 // include imgui in sdk ( ? )
-
 
 //#include <d3dx9.h>
 //#pragma comment (lib, "d3dx9.lib")

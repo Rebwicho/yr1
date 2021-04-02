@@ -78,7 +78,7 @@
     <ClCompile Include="source\sdk\utils\time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\sdk\network\receiver.cpp">
+    <ClCompile Include="source\sdk\network\packet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -173,7 +173,7 @@
     <ClInclude Include="source\sdk\network\packets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\sdk\network\receiver.h">
+    <ClInclude Include="source\sdk\network\packet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

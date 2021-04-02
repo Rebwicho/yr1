@@ -17,7 +17,6 @@ namespace gui::view
 		controls::input_str m_ipassword;
 		
 		controls::button m_bsend;
-		controls::button m_bdummy;
 
 	private:
 		bool m_is_fulfilled = 0;
