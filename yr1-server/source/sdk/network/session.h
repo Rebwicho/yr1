@@ -34,7 +34,7 @@ namespace sdk
 		template < typename packet_type >
 		static packet_type convert_bytes( std::deque< u8 >& recived_bytes );
 		
-		void handle_packet( std::deque<u8> recived_bytes );
+		void handle_packet( std::vector<u8> recived_bytes );
 	
 	protected: /* sender */
 

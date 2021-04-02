@@ -27,7 +27,7 @@ void sdk::c_session::stop( )
 
 void sdk::c_session::on_read( u32 size )
 {
-	std::deque< u8 > bytes( m_recv_buffer, m_recv_buffer + size );
+	std::vector< u8 > bytes( m_recv_buffer, m_recv_buffer + size );
 	//std::cout << "recv: " << size << " bytes on " << m_sid << "> ";
 	////<< bytes. << std::endl;
 
@@ -75,12 +75,23 @@ template <typename packet_type>
 packet_type sdk::c_session::convert_bytes( std::deque<u8>& recived_bytes )
 {
 	auto packet = packet_type( );
-	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) - 1 );
+	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) );
 
 	return packet;
 }
 
-void sdk::c_session::handle_packet( std::deque<u8> recived_bytes )
+void asdasdsa( u32 addr, u32 size )
+{
+	for ( u32 c = addr; c < addr + size; c++ )
+	{
+		u8 byte = *( u8* )c;
+
+		printf( "%#hhx ", byte );
+	}
+	std::cout << std::endl;
+}
+
+void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
 {
 	std::cout << "reciever: got " << recived_bytes.size( ) << " bytes> ";
 
@@ -91,7 +102,7 @@ void sdk::c_session::handle_packet( std::deque<u8> recived_bytes )
 	// deduce type of packet
 	auto packet_type = recived_bytes[ 0 ];
 
-	printf( "reciever: packet type is %#hhx\n", packet_type );
+	//printf( "reciever: packet type is %#hhx\n", packet_type );
 
 	switch ( ( enumer::packet_type_t )packet_type )
 	{
@@ -100,23 +111,33 @@ void sdk::c_session::handle_packet( std::deque<u8> recived_bytes )
 
 		case sdk::enums::e_packet_type::login:
 		{
-			auto packet = convert_bytes< packet::login >( recived_bytes );
-
+			auto packet = packet::login( ); //convert_bytes< packet::login >( recived_bytes );
+			memcpy( &packet, recived_bytes.data( ), sizeof( packet::login ) );
 			// check if login and password matches that of db one
 
+			asdasdsa( (u32)&packet, sizeof( packet::login ) );
+			
 			packet::login_result login_result;
 
 			std::string login( packet.login_buffer );
 			std::string password( packet.password_buffer );
 
+			std::cout << "log: login: " << login << std::endl;
+			std::cout << "log: password: " << password << std::endl;
+			
 			if ( login == "rebo" && password == "pass" )
 			{
 				login_result.result = 1;
+				std::cout << "log: login success" << std::endl;
+
 			}
 			else
+			{
 				login_result.result = 0;
+				std::cout << "log: login failed" << std::endl;
+			}
 
-			memcpy( m_send_buffer, &login_result, sizeof( login_result ) );
+			memcpy( &m_send_buffer, &login_result, sizeof( login_result ) );
 
 			m_socket.async_write_some( asio::buffer( m_send_buffer, sizeof( login_result ) ),
 				[ & ]( const asio::error_code& error, std::size_t bytes_transferred ) {
