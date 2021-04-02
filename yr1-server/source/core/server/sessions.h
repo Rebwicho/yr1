@@ -1,7 +1,7 @@
 #ifndef SESSIONS_H
 #define SESSIONS_H
 
-#include "../../sdk/network/session.h"
+#include "session.h"
 
 namespace core
 {

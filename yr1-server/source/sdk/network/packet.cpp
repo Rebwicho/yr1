@@ -1,30 +1,9 @@
 #include <common.h>
-//#include <sdk.h>
+#include <sdk.h>
 
 #include "packet.h"
-//#include "packet.h"
 
-
-//template < typename packet_type >
-//packet_type sdk::network::convert_bytes( std::vector< u8 > recived_bytes )
-//{
-//	auto packet = packet_type( );
-//	std::memcpy( &packet, recived_bytes.front( ), sizeof( packet_type ) );
-//
-//	return packet;
-//}
-
-//template <typename packet_type>
-//packet_type sdk::network::c_packet::convert_bytes( std::vector<u8>& recived_bytes )
-//{
-//	auto packet = packet_type( );
-//	std::memcpy( &packet, recived_bytes.data( ), sizeof( packet_type ) );
-//
-//	return packet;
-//}
-
-//template <typename packet_type>
-//packet_type sdk::network::c_packet::convert_bytes( std::vector<u8>& recived_bytes )
-//{
-//	return packet_type( );
-//}
+std::vector<u8> sdk::network::converter::to_bytes( void* packet, std::size_t size_of_packet )
+{
+	return std::vector< u8 >( ( u8* )packet, ( u8* )packet + size_of_packet );
+}

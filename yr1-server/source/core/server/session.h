@@ -27,7 +27,7 @@ namespace sdk
 		void breath( );
 
 	protected: /* auth */
-
+		bool m_is_logged = 0;
 	
 	protected: /* receiver */		
 		void handle_packet( std::vector<u8>& recived_bytes );

@@ -7,8 +7,8 @@ namespace sdk::enums
 	{
 		login,
 		login_response,
-		cheat_list, // client requests cheat list that is available for him
-		cheat_list_response, // packet that contains list of available cheats from client that requested
+		game_list, // client requests game list that he have active subscription for
+		game_list_response, // packet that contains list of available games that client have subscription for
 		
 	};
 }

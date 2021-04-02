@@ -168,17 +168,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\core\procedures\networker.cpp" />
-    <ClCompile Include="source\core\procedures\receiver.cpp" />
     <ClCompile Include="source\core\server\sessions.cpp" />
     <ClCompile Include="source\core\server\server.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
     <ClCompile Include="source\sdk\network\packet.cpp" />
-    <ClCompile Include="source\sdk\network\session.cpp" />
+    <ClCompile Include="source\core\server\session.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\core\procedures\networker.h" />
-    <ClInclude Include="source\core\procedures\receiver.h" />
     <ClInclude Include="source\core\server\sessions.h" />
     <ClInclude Include="source\core\server\server.h" />
     <ClInclude Include="source\sdk\network\packet.h" />
@@ -186,7 +182,7 @@
     <ClInclude Include="source\sdk\network\session\receiver.h" />
     <ClInclude Include="source\sdk\network\session\sender.h" />
     <ClInclude Include="source\sdk\network\packets.h" />
-    <ClInclude Include="source\sdk\network\session.h" />
+    <ClInclude Include="source\core\server\session.h" />
     <ClInclude Include="source\sdk\utils\enum_file.h" />
     <ClInclude Include="source\sdk\_include\common.h" />
     <ClInclude Include="source\sdk\_include\sdk.h" />

@@ -3,31 +3,31 @@
 
 namespace sdk::network
 {
-	class c_packet
+	class converter
 	{
 	public:
-		template < typename packet_type >
-		static packet_type convert_bytes( std::vector< u8 >& recived_bytes );
-	
+		// convert vector of bytes to desired packet
+		template < typename desired_packet_type >
+		static desired_packet_type from_bytes( std::vector< u8 >& bytes );
+
+		// conver packet to vector of bytes
+		static std::vector< u8 > to_bytes( void* packet, std::size_t size_of_packet );
 	};
 
-	//template <typename packet_type>
-	//packet_type c_packet::convert_bytes( std::vector<u8>& recived_bytes )
-	//{
-	//	auto packet = packet_type( );
-	//	std::memcpy( &packet, recived_bytes.data( ), sizeof( packet_type ) );
-
-	//	return packet;
-	//}
-
-	template <typename packet_type>
-	packet_type c_packet::convert_bytes( std::vector<u8>& recived_bytes )
+	template <typename desired_packet_type>
+	desired_packet_type converter::from_bytes( std::vector<u8>& bytes )
 	{
-		auto packet = packet_type( );
-		std::memcpy( &packet, recived_bytes.data( ), sizeof( packet ) );
+		auto desired_packet = desired_packet_type( );
 
-		return packet;
+		std::memcpy( &desired_packet, bytes.data( ), sizeof( desired_packet ) );
+
+		return desired_packet;
 	}
+}
+
+namespace packet
+{
+	typedef sdk::network::converter convert;
 }
 
 #endif // PACKET_H

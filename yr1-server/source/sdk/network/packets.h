@@ -22,6 +22,14 @@ namespace sdk::packets
 	packet_start( s_login_response, enumer::packet_type_t::login_response )
 		u32 result; /* u32 because we can have multiple diffrent results like banned suspended success failed ... */
 	packet_end
+
+	packet_start( s_game_list, enumer::packet_type_t::game_list )
+
+	packet_end
+
+	packet_start( s_game_list_response, enumer::packet_type_t::game_list_response )
+		u32 games_list[ 4 /* size of how much we have cheats created Nostale, NosWings, ... */ ] = { };
+	packet_end
 	
 	// ...
 
@@ -32,6 +40,8 @@ namespace packet
 {
 	typedef sdk::packets::s_login login;
 	typedef sdk::packets::s_login_response login_response;
+	typedef sdk::packets::s_game_list game_list;
+	typedef sdk::packets::s_game_list_response game_list_response;
 	
 }
 

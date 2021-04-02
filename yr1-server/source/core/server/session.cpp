@@ -3,7 +3,7 @@
 
 #include "session.h"
 
-#include "../../core/server/sessions.h"
+#include "sessions.h"
 
 void sdk::c_session::start( )
 {
@@ -70,40 +70,29 @@ void sdk::c_session::breath( )
 	// like: health_check or status stuff etc 
 }
 
-void asdasdsa( u32 addr, u32 size )
-{
-	for ( u32 c = addr; c < addr + size; c++ )
-	{
-		u8 byte = *( u8* )c;
-
-		printf( "%#hhx ", byte );
-	}
-	std::cout << std::endl;
-}
-
 void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 {
 	std::cout << "reciever: got " << recived_bytes.size( ) << " bytes" << std::endl;
 
-	//for ( auto& byte : recived_bytes )
-	//	printf( "%#hhx ", byte );
-	//std::cout << std::endl;
-
-	// deduce type of packet
-	auto packet_type = recived_bytes.front(  );
-
-	//printf( "reciever: packet type is %#hhx\n", packet_type );
-
-	switch ( ( enumer::packet_type_t )packet_type )
+	if ( m_is_logged == 0 && ( enumer::packet_type_t )recived_bytes.front( ) != enumer::packet_type_t::login )
 	{
-		// on each case we will have something like on_packet_name( packet );
+		// client is not logged and tired to do something else than login seems like someone is simulating packets
+		// for now just return
+		// later on we will want to flag account
+		// todo:
+		return;
+	}
+	
+	switch ( ( enumer::packet_type_t )recived_bytes.front( ) )
+	{
+		// on each case we will have something like on_packet_##name( packet );
 		// that will handle what operations it needs to do with it
 
 		case sdk::enums::e_packet_type::login:
 		{
-			auto packet = sdk::network::c_packet::convert_bytes< packet::login >( recived_bytes );
+			auto packet = packet::convert::from_bytes< packet::login >( recived_bytes );
 			
-			packet::login_response login_result;
+			packet::login_response login_response;
 
 			std::string login( packet.login_buffer );
 			std::string password( packet.password_buffer );
@@ -114,21 +103,23 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 			// check if login and password matches that of db one
 			if ( login == "rebo" && password == "pass" )
 			{
-				login_result.result = 1;
+				login_response.result = 1;
 				std::cout << "log: " << m_sid << "> login success" << std::endl;
-
+				m_is_logged = 1;
 			}
 			else
 			{
-				login_result.result = 0;
+				login_response.result = 0;
 				std::cout << "log: " << m_sid << "> login failed" << std::endl;
 			}
 
-			memcpy( &m_send_buffer, &login_result, sizeof( login_result ) );
+			memcpy( &m_send_buffer, &login_response, sizeof( login_response ) );
+			//auto result_as_bytes = packet::convert::to_bytes( &login_response, sizeof( packet::login_response ) );
+			// ^ cant use this because this var gets destructed before async_write writes data :<
 
-			std::cout << "log: sending " << sizeof( login_result ) << "bytes to " << m_sid << std::endl;
+			std::cout << "log: sending " << sizeof( login_response ) << "bytes to " << m_sid << std::endl;
 			
-			m_socket.async_write_some( asio::buffer( m_send_buffer, sizeof( login_result ) ),
+			m_socket.async_write_some( asio::buffer( m_send_buffer ),
 				[ & ]( const asio::error_code& error, std::size_t bytes_transferred ) {
 					if ( error )
 					{
@@ -141,11 +132,40 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 				} );
 
 		} break;
-		case sdk::enums::e_packet_type::login_response:
+		case sdk::enums::e_packet_type::game_list:
 		{
+			auto packet = packet::convert::from_bytes< packet::game_list >( recived_bytes );
 
+			// get list of subscriptions for that client from db
+			//std::vector< std::string > avail_client_games = { "Nostale", "NosWings", "test1", "test2" };
+			std::vector< u32 > avail_client_games = { 1, 2, 3, 4 };
+			// simulating^ remember to change when db is ready todo: <- this
+			
+			auto game_list_response = packet::game_list_response( );
+
+			for ( int it = 0; it < avail_client_games.size(  ); ++it )
+				game_list_response.games_list[ it ] = avail_client_games[ it ];
+	
+			memcpy( &m_send_buffer, &game_list_response, sizeof( game_list_response ) );
+
+			std::cout << "log: sending " << sizeof( game_list_response ) << "bytes to " << m_sid << std::endl;
+
+			m_socket.async_write_some( asio::buffer( m_send_buffer ),
+				[ & ]( const asio::error_code& error, std::size_t bytes_transferred ) {
+					if ( error )
+					{
+						on_error( error );
+						return;
+					}
+
+					//on_read( bytes_transferred );
+					std::cout << "log:" << m_sid << "> sent response to game_list request" << std::endl;
+				} );
 		} break;
 
-		default: break;
+		default: 
+		{
+			std::cout << "log:" << m_sid << "> recived unknown packet type" << std::endl;
+		} break;
 	}
 }
