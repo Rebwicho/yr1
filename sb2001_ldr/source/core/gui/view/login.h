@@ -10,13 +10,14 @@ namespace gui::view
 		bool is_fulfilled( ) override;
 
 	public:
-		void on_login( );
+		void on_login( ); // rename to on_success?
 	
 	private: /* define controls here */
 		controls::input_str m_ilogin;
 		controls::input_str m_ipassword;
 		
 		controls::button m_bsend;
+		controls::button m_bdummy;
 
 	private:
 		bool m_is_fulfilled = 0;

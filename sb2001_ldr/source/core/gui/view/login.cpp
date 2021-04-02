@@ -3,8 +3,21 @@
 
 #include "login.h"
 
-char login_buffer[ 16 ];
-char password_buffer[ 32 ];
+#include "../../network/session.h"
+
+char login_buffer[ 16 + 1 /* null */ ];
+char password_buffer[ 32 + 1 /* null */ ];
+
+void dump_packet_mem( u32 addr, u32 size )
+{
+	for ( u32 c = addr; c < addr + size; c++ )
+	{
+		u8 byte = *( u8* )c;
+
+		printf( "%#hhx ", byte );
+	}
+	std::cout << std::endl;
+}
 
 void gui::view::c_login::make( )
 {
@@ -67,17 +80,58 @@ void gui::view::c_login::make( )
 		// lets spawn thread that waits for 3s and then calls on_login
 		// to simulate login process for now
 		std::thread( [ & ]( ) {
-			static u32 wait_time = 0;
-			if ( wait_time == 0 ) wait_time = GetTickCount( ) + 2000;
+			//static u32 wait_time = 0;
+			//if ( wait_time == 0 ) wait_time = GetTickCount( ) + 2000;
 
-			while ( GetTickCount( ) < wait_time )
-				std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+			//while ( GetTickCount( ) < wait_time )
+			//	std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
 
-			gui::c_status_bar::get( ).set( ( std::string( "welcome, " ) + std::string( login_buffer ) ).c_str( ) );
-			
-			on_login( );
+			packet::login login_packet;
+			memcpy( &login_packet.login_buffer, &login_buffer, sizeof( login_packet.login_buffer ) );
+			memcpy( &login_packet.password_buffer, &password_buffer, sizeof( login_packet.password_buffer ) );
+			std::vector< u8 > login_as_bytes( ( u8* )&login_packet, ( u8* )&login_packet + sizeof( login_packet ) );
+
+			//auto result_data = n_core::c_session::get( ).sync_send( login_as_bytes );
+			auto result_data = core::c_receiver::convert_bytes< packet::login_result >( n_core::c_session::get( ).sync_send( login_as_bytes ) );
+
+			if ( result_data.result == 0 )
+			{
+				gui::c_status_bar::get( ).set( "invalid, try again" );
+			}
+			else if ( result_data.result == 1 )
+			{
+				gui::c_status_bar::get( ).set( ( std::string( "welcome, " ) + std::string( login_buffer ) ).c_str( ) );
+				on_login( );
+			}		
 		} ).detach( );
 	}
+
+	//if ( m_bdummy.make( "send dummy" ) )
+	//{
+	//	std::cout << "log: send dummy button clicked" << std::endl;
+
+	//	//dump_packet_mem( ( u32 )&login_buffer, sizeof( login_buffer ) );
+	//	//dump_packet_mem( ( u32 )&password_buffer, sizeof( password_buffer ) );
+
+	//	packet::login login_packet;
+	//	memcpy( &login_packet.login_buffer, &login_buffer, sizeof( login_packet.login_buffer ) );
+	//	memcpy( &login_packet.password_buffer, &password_buffer, sizeof( login_packet.password_buffer ) );
+	//	std::vector< u8 > login_as_bytes( ( u8* )&login_packet, ( u8* )&login_packet + sizeof( login_packet ) );
+
+	//	//login_packet.login_buffer = login_buffer;
+	//	//std::cout << "log: login_packet.login_buffer: " << login_packet.login_buffer << std::endl;
+	//
+	//	//std::cout << "log: login_packet.password_buffer: " << login_packet.password_buffer << std::endl;
+
+	//	//dump_packet_mem( ( u32 )&login_packet, sizeof( login_packet ) );
+
+
+	//	//for ( auto& byte : login_as_bytes )
+	//	//	printf( "%#hhx ", byte );
+	//	//std::cout << std::endl;
+
+	//	n_core::c_session::get( ).send( login_as_bytes );
+	//}
 
 }
 
