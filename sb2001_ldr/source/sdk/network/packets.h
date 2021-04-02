@@ -19,7 +19,7 @@ namespace sdk::packets
 		char password_buffer[ 33 ] = { };
 	packet_end
 
-	packet_start( s_login_result, enumer::packet_type_t::login_result )
+	packet_start( s_login_response, enumer::packet_type_t::login_response )
 		u32 result; /* u32 because we can have multiple diffrent results like banned suspended success failed ... */
 	packet_end
 	
@@ -31,7 +31,7 @@ namespace sdk::packets
 namespace packet
 {
 	typedef sdk::packets::s_login login;
-	typedef sdk::packets::s_login_result login_result;
+	typedef sdk::packets::s_login_response login_response;
 }
 
 #endif // PACKETS_H

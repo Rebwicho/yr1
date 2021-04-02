@@ -36,7 +36,7 @@ void core::c_receiver::handler( std::deque<u8> recived_bytes )
 		// that will handle what operations it needs to do with it
 
 		case n_sdk::n_enum::e_packet_type::login: break;
-		case n_sdk::n_enum::e_packet_type::login_result:
+		case n_sdk::n_enum::e_packet_type::login_response:
 		{
 			//auto packet = convert_bytes< packet::login_result >( recived_bytes );
 
@@ -112,7 +112,7 @@ template<typename packet_type>
 packet_type core::c_receiver::convert_bytes( std::vector<u8> recived_bytes )
 {
 	auto packet = packet_type( );
-	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) - 1 );
+	std::memcpy( &packet, recived_bytes.front( ), sizeof( packet_type ) );
 
 	return packet;
 }

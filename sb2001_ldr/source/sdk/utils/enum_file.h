@@ -18,7 +18,7 @@ namespace n_sdk::n_enum
 	enum class e_packet_type : u8
 	{
 		login,
-		login_result
+		login_response
 	};
 }
 

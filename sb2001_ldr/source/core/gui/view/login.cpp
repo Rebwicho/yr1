@@ -92,18 +92,19 @@ void gui::view::c_login::make( )
 			std::vector< u8 > login_as_bytes( ( u8* )&login_packet, ( u8* )&login_packet + sizeof( login_packet ) );
 
 			//auto result_data = n_core::c_session::get( ).sync_send( login_as_bytes );
+			
 			auto bytes_recived = n_core::c_session::get( ).sync_send( login_as_bytes );
-
-			auto result_data = packet::login_result( );
-			std::memcpy( &result_data, &bytes_recived[ 0 ], sizeof( packet::login_result ) );
+			auto login_response = core::c_receiver::convert_bytes< packet::login_response >( bytes_recived );
+			
+			//std::memcpy( &result_data, &bytes_recived[ 0 ], sizeof( packet::login_result ) );
 			
 			//auto result_data = core::c_receiver::convert_bytes< packet::login_result >( bytes_recived );
 
-			if ( result_data.result == 0 )
+			if ( login_response.result == 0 )
 			{
 				gui::c_status_bar::get( ).set( "invalid, try again" );
 			}
-			else if ( result_data.result == 1 )
+			else if ( login_response.result == 1 )
 			{
 				gui::c_status_bar::get( ).set( ( std::string( "welcome, " ) + std::string( login_buffer ) ).c_str( ) );
 				on_login( );
