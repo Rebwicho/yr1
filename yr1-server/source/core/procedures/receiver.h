@@ -1,7 +1,6 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-
 namespace core
 {
 	class c_receiver : public c_singleton< c_receiver >
@@ -12,7 +11,7 @@ namespace core
 		void handler( std::deque< u8 > recived_bytes );
 
 		template < typename packet_type >
-		static packet_type convert_bytes( std::deque< u8 >& recived_bytes );
+		static packet_type convert_bytes( std::vector< u8 >& recived_bytes );
 	};
 
 }

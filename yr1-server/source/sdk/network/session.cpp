@@ -71,15 +71,6 @@ void sdk::c_session::breath( )
 	// like: health_check or status stuff etc 
 }
 
-template <typename packet_type>
-packet_type sdk::c_session::convert_bytes( std::deque<u8>& recived_bytes )
-{
-	auto packet = packet_type( );
-	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) );
-
-	return packet;
-}
-
 void asdasdsa( u32 addr, u32 size )
 {
 	for ( u32 c = addr; c < addr + size; c++ )
@@ -95,12 +86,12 @@ void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
 {
 	std::cout << "reciever: got " << recived_bytes.size( ) << " bytes> ";
 
-	for ( auto& byte : recived_bytes )
-		printf( "%#hhx ", byte );
-	std::cout << std::endl;
+	//for ( auto& byte : recived_bytes )
+	//	printf( "%#hhx ", byte );
+	//std::cout << std::endl;
 
 	// deduce type of packet
-	auto packet_type = recived_bytes[ 0 ];
+	auto packet_type = recived_bytes.front(  );
 
 	//printf( "reciever: packet type is %#hhx\n", packet_type );
 
@@ -111,13 +102,9 @@ void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
 
 		case sdk::enums::e_packet_type::login:
 		{
-			auto packet = packet::login( ); //convert_bytes< packet::login >( recived_bytes );
-			memcpy( &packet, recived_bytes.data( ), sizeof( packet::login ) );
-			// check if login and password matches that of db one
-
-			asdasdsa( (u32)&packet, sizeof( packet::login ) );
+			auto packet = core::c_receiver::convert_bytes< packet::login >( recived_bytes );
 			
-			packet::login_result login_result;
+			packet::login_response login_result;
 
 			std::string login( packet.login_buffer );
 			std::string password( packet.password_buffer );
@@ -125,6 +112,7 @@ void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
 			std::cout << "log: login: " << login << std::endl;
 			std::cout << "log: password: " << password << std::endl;
 			
+			// check if login and password matches that of db one
 			if ( login == "rebo" && password == "pass" )
 			{
 				login_result.result = 1;
@@ -148,11 +136,11 @@ void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
 					}
 
 					//on_read( bytes_transferred );
-					std::cout << "log: sent result to login request" << std::endl;
+					std::cout << "log: sent response to login request" << std::endl;
 				} );
 
 		} break;
-		case sdk::enums::e_packet_type::login_result:
+		case sdk::enums::e_packet_type::login_response:
 		{
 
 		} break;
