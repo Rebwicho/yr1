@@ -14,6 +14,21 @@ namespace n_sdk::n_enum
 		visual_settings, // some modifications to loader look?
 		account, // we can have some account infos?
 	};
+	
+	enum class e_packet_type : u8
+	{
+		test_recv1 = 1,
+		test_recv2 = 2,
+		test_recv3 = 3,
+		test_recv4 = 4,
+		login,
+		login_result
+	};
+}
+
+namespace enumer
+{
+	typedef n_sdk::n_enum::e_packet_type packet_type_t;
 }
 
 namespace n_sdk
