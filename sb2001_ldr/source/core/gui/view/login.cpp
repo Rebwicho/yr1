@@ -94,8 +94,8 @@ void gui::view::c_login::make( )
 			//auto result_data = n_core::c_session::get( ).sync_send( login_as_bytes );
 			
 			auto bytes_recived = n_core::c_session::get( ).sync_send( login_as_bytes );
-			auto login_response = core::c_receiver::convert_bytes< packet::login_response >( bytes_recived );
-			
+			auto login_response = packet::login_response( );// core::c_receiver::convert_bytes< packet::login_response >( bytes_recived );
+			std::memcpy( &bytes_recived, bytes_recived.data( ), sizeof( login_response ) );
 			//std::memcpy( &result_data, &bytes_recived[ 0 ], sizeof( packet::login_result ) );
 			
 			//auto result_data = core::c_receiver::convert_bytes< packet::login_result >( bytes_recived );

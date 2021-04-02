@@ -17,7 +17,7 @@ namespace core
 		//static packet_type convert_bytes( std::vector< u8 >& recived_bytes );
 
 		template < typename packet_type >
-		static packet_type convert_bytes( std::vector< u8 > recived_bytes );
+		static packet_type convert_bytes( std::vector< u8 >& recived_bytes );
 	};
 
 }

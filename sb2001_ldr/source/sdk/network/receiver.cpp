@@ -109,10 +109,10 @@ void core::c_receiver::handler( std::deque<u8> recived_bytes )
 //}
 
 template<typename packet_type>
-packet_type core::c_receiver::convert_bytes( std::vector<u8> recived_bytes )
+packet_type core::c_receiver::convert_bytes( std::vector<u8>& recived_bytes )
 {
 	auto packet = packet_type( );
-	std::memcpy( &packet, recived_bytes.front( ), sizeof( packet_type ) );
+	std::memcpy( &packet, &recived_bytes.data( ), sizeof( packet_type ) );
 
 	return packet;
 }
