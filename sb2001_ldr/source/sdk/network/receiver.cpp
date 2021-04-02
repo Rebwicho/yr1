@@ -6,16 +6,16 @@
 #include "../../core/gui/view/login.h"
 
 // to-remove:
-void dump_packet_mem( u32 addr, u32 size )
-{
-	for ( u32 c = addr; c < addr + size; c++ )
-	{
-		u8 byte = *( u8* )c;
-
-		printf( "%#hhx ", byte );
-	}
-	std::cout << std::endl;
-}
+//void dump_packet_mem( u32 addr, u32 size )
+//{
+//	for ( u32 c = addr; c < addr + size; c++ )
+//	{
+//		u8 byte = *( u8* )c;
+//
+//		printf( "%#hhx ", byte );
+//	}
+//	std::cout << std::endl;
+//}
 
 void core::c_receiver::handler( std::deque<u8> recived_bytes )
 {
@@ -38,31 +38,31 @@ void core::c_receiver::handler( std::deque<u8> recived_bytes )
 		case n_sdk::n_enum::e_packet_type::login: break;
 		case n_sdk::n_enum::e_packet_type::login_result:
 		{
-			auto packet = convert_bytes< packet::login_result >( recived_bytes );
+			//auto packet = convert_bytes< packet::login_result >( recived_bytes );
 
-			switch ( packet.result )
-			{
-				case 0:
-				{
-					// null
-					gui::c_status_bar::get( ).set( "null" );
-				} break;
+			//switch ( packet.result )
+			//{
+			//	case 0:
+			//	{
+			//		// null
+			//		gui::c_status_bar::get( ).set( "null" );
+			//	} break;
 
-				case 1:
-				{
-					// failed
-					gui::c_status_bar::get( ).set( "invalid, try again" );
-					
-				} break;
+			//	case 1:
+			//	{
+			//		// failed
+			//		gui::c_status_bar::get( ).set( "invalid, try again" );
+			//		
+			//	} break;
 
-				case 2:
-				{
-					// success
-					//gui::c_status_bar::get( ).set( "invalid, try again" );
-					//gui::view::c_login::get( ).on_login( );
+			//	case 2:
+			//	{
+			//		// success
+			//		//gui::c_status_bar::get( ).set( "invalid, try again" );
+			//		//gui::view::c_login::get( ).on_login( );
 
-				} break;
-			}
+			//	} break;
+			//}
 			
 		} break;
 		/*case sdk::enums::e_packet_type::test_recv1:
@@ -90,23 +90,23 @@ void core::c_receiver::handler( std::deque<u8> recived_bytes )
 
 }
 
-template<typename packet_type>
-packet_type core::c_receiver::convert_bytes( std::deque<u8>& recived_bytes )
-{
-	auto packet = packet_type( );
-	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) - 1 );
+//template<typename packet_type>
+//packet_type core::c_receiver::convert_bytes( std::deque<u8>& recived_bytes )
+//{
+//	auto packet = packet_type( );
+//	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) - 1 );
+//
+//	return packet;
+//}
 
-	return packet;
-}
-
-template<typename packet_type>
-packet_type core::c_receiver::convert_bytes( std::vector<u8>& recived_bytes )
-{
-	auto packet = packet_type( );
-	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) - 1 );
-
-	return packet;
-}
+//template<typename packet_type>
+//packet_type core::c_receiver::convert_bytes( std::vector<u8>& recived_bytes )
+//{
+//	auto packet = packet_type( );
+//	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) - 1 );
+//
+//	return packet;
+//}
 
 template<typename packet_type>
 packet_type core::c_receiver::convert_bytes( std::vector<u8> recived_bytes )

@@ -10,11 +10,11 @@ namespace core
 		// first byte is type of packet
 		static void handler( std::deque< u8 > recived_bytes );
 
-		template < typename packet_type >
-		static packet_type convert_bytes( std::deque< u8 >& recived_bytes );
+		//template < typename packet_type >
+		//static packet_type convert_bytes( std::deque< u8 >& recived_bytes );
 
-		template < typename packet_type >
-		static packet_type convert_bytes( std::vector< u8 >& recived_bytes );
+		//template < typename packet_type >
+		//static packet_type convert_bytes( std::vector< u8 >& recived_bytes );
 
 		template < typename packet_type >
 		static packet_type convert_bytes( std::vector< u8 > recived_bytes );

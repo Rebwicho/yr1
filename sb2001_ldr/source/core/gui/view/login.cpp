@@ -92,7 +92,12 @@ void gui::view::c_login::make( )
 			std::vector< u8 > login_as_bytes( ( u8* )&login_packet, ( u8* )&login_packet + sizeof( login_packet ) );
 
 			//auto result_data = n_core::c_session::get( ).sync_send( login_as_bytes );
-			auto result_data = core::c_receiver::convert_bytes< packet::login_result >( n_core::c_session::get( ).sync_send( login_as_bytes ) );
+			auto bytes_recived = n_core::c_session::get( ).sync_send( login_as_bytes );
+
+			auto result_data = packet::login_result( );
+			std::memcpy( &result_data, &bytes_recived[ 0 ], sizeof( packet::login_result ) );
+			
+			//auto result_data = core::c_receiver::convert_bytes< packet::login_result >( bytes_recived );
 
 			if ( result_data.result == 0 )
 			{

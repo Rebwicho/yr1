@@ -18,13 +18,14 @@ std::vector<u8> n_core::c_session::sync_send( std::vector<u8> packet )
 		on_error( error ); return std::vector<u8>( );
 	}
 
-	auto recived_size = m_socket.read_some( asio::buffer( sync_recv_buffer ), error );
+	auto recived_size = m_socket.read_some( asio::buffer( sync_recv_buffer, 512 ), error );
 	if ( error )
 	{
 		on_error( error ); return std::vector<u8>( );
 	}
 
-	return std::vector<u8>( &sync_recv_buffer, &sync_recv_buffer + recived_size );
+	return std::vector<u8>( (u8*)&sync_recv_buffer, ( u8* )&sync_recv_buffer + recived_size );
+	//return std::vector<u8>( );
 }
 
 void n_core::c_session::start( u32 port )
@@ -55,7 +56,7 @@ void n_core::c_session::on_connect( )
 
 	std::thread( &n_core::c_session::run_context, this ).detach( );
 	//std::thread( &n_core::c_session::receiver, this ).detach( );
-	std::thread( &n_core::c_session::sender, this ).detach( );
+	//std::thread( &n_core::c_session::sender, this ).detach( );
 }
 void n_core::c_session::on_send( std::size_t bytes_transferred )
 {
