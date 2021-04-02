@@ -173,6 +173,7 @@
     <ClCompile Include="source\core\server\sessions.cpp" />
     <ClCompile Include="source\core\server\server.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
+    <ClCompile Include="source\sdk\network\packet.cpp" />
     <ClCompile Include="source\sdk\network\session.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,7 @@
     <ClInclude Include="source\core\procedures\receiver.h" />
     <ClInclude Include="source\core\server\sessions.h" />
     <ClInclude Include="source\core\server\server.h" />
+    <ClInclude Include="source\sdk\network\packet.h" />
     <ClInclude Include="source\sdk\network\session\authenticator.h" />
     <ClInclude Include="source\sdk\network\session\receiver.h" />
     <ClInclude Include="source\sdk\network\session\sender.h" />

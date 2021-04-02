@@ -4,6 +4,7 @@
 #include "../utils/enum_file.h"
 
 #include "../network/packets.h"
-#include "../network/session.h"
+#include "../network/packet.h"
+//#include "../network/session.h"
 
 #endif // SDK_H

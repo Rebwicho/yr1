@@ -3,7 +3,6 @@
 
 #include "session.h"
 
-#include "../../core/procedures/receiver.h"
 #include "../../core/server/sessions.h"
 
 void sdk::c_session::start( )
@@ -82,7 +81,7 @@ void asdasdsa( u32 addr, u32 size )
 	std::cout << std::endl;
 }
 
-void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
+void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 {
 	std::cout << "reciever: got " << recived_bytes.size( ) << " bytes> ";
 
@@ -102,27 +101,27 @@ void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
 
 		case sdk::enums::e_packet_type::login:
 		{
-			auto packet = core::c_receiver::convert_bytes< packet::login >( recived_bytes );
+			auto packet = sdk::network::c_packet::convert_bytes< packet::login >( recived_bytes );
 			
 			packet::login_response login_result;
 
 			std::string login( packet.login_buffer );
 			std::string password( packet.password_buffer );
 
-			std::cout << "log: login: " << login << std::endl;
-			std::cout << "log: password: " << password << std::endl;
+			std::cout << "log: " << m_sid << "> login: " << login << std::endl;
+			std::cout << "log: " << m_sid << "> password: " << password << std::endl;
 			
 			// check if login and password matches that of db one
 			if ( login == "rebo" && password == "pass" )
 			{
 				login_result.result = 1;
-				std::cout << "log: login success" << std::endl;
+				std::cout << "log: " << m_sid << "> login success" << std::endl;
 
 			}
 			else
 			{
 				login_result.result = 0;
-				std::cout << "log: login failed" << std::endl;
+				std::cout << "log: " << m_sid << "> login failed" << std::endl;
 			}
 
 			memcpy( &m_send_buffer, &login_result, sizeof( login_result ) );
@@ -136,7 +135,7 @@ void sdk::c_session::handle_packet( std::vector<u8> recived_bytes )
 					}
 
 					//on_read( bytes_transferred );
-					std::cout << "log: sent response to login request" << std::endl;
+					std::cout << "log:" << m_sid << "> sent response to login request" << std::endl;
 				} );
 
 		} break;

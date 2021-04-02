@@ -1,6 +1,8 @@
 #ifndef SESSIONS_H
 #define SESSIONS_H
 
+#include "../../sdk/network/session.h"
+
 namespace core
 {
 	// template< typename type = sdk::c_session >

@@ -1,7 +1,6 @@
 #ifndef SESSION_H
 #define SESSION_H
 
-
 using asio::ip::tcp;
 
 namespace sdk
@@ -31,7 +30,7 @@ namespace sdk
 
 	
 	protected: /* receiver */		
-		void handle_packet( std::vector<u8> recived_bytes );
+		void handle_packet( std::vector<u8>& recived_bytes );
 	
 	protected: /* sender */
 
