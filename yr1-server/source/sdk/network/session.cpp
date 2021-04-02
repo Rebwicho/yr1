@@ -83,7 +83,7 @@ void asdasdsa( u32 addr, u32 size )
 
 void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 {
-	std::cout << "reciever: got " << recived_bytes.size( ) << " bytes> ";
+	std::cout << "reciever: got " << recived_bytes.size( ) << " bytes" << std::endl;
 
 	//for ( auto& byte : recived_bytes )
 	//	printf( "%#hhx ", byte );
@@ -126,6 +126,8 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 
 			memcpy( &m_send_buffer, &login_result, sizeof( login_result ) );
 
+			std::cout << "log: sending " << sizeof( login_result ) << "bytes to " << m_sid << std::endl;
+			
 			m_socket.async_write_some( asio::buffer( m_send_buffer, sizeof( login_result ) ),
 				[ & ]( const asio::error_code& error, std::size_t bytes_transferred ) {
 					if ( error )

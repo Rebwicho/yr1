@@ -24,7 +24,7 @@ namespace sdk::network
 	packet_type c_packet::convert_bytes( std::vector<u8>& recived_bytes )
 	{
 		auto packet = packet_type( );
-		std::memcpy( &packet, recived_bytes.data( ), sizeof( packet_type ) );
+		std::memcpy( &packet, recived_bytes.data( ), sizeof( packet ) );
 
 		return packet;
 	}
