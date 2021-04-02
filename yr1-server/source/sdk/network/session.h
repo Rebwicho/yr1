@@ -1,6 +1,7 @@
 #ifndef SESSION_H
 #define SESSION_H
 
+
 using asio::ip::tcp;
 
 namespace sdk
@@ -30,7 +31,10 @@ namespace sdk
 
 	
 	protected: /* receiver */
-
+		template < typename packet_type >
+		static packet_type convert_bytes( std::deque< u8 >& recived_bytes );
+		
+		void handle_packet( std::deque<u8> recived_bytes );
 	
 	protected: /* sender */
 
@@ -40,6 +44,7 @@ namespace sdk
 
 	private:
 		u8 m_recv_buffer[ 512 ];
+		u8 m_send_buffer[ 512 ];
 
 	private:
 		tcp::socket m_socket;

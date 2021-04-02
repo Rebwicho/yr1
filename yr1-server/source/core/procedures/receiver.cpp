@@ -33,25 +33,15 @@ void core::c_receiver::handler( std::deque<u8> recived_bytes )
 		// on each case we will have something like on_packet_name( packet );
 		// that will handle what operations it needs to do with it
 		
-		case sdk::enums::e_packet_type::test_recv1: {
-			auto packet = convert_bytes< packet::test_recv_t1 >( recived_bytes );
+		case sdk::enums::e_packet_type::login: {
+			auto packet = convert_bytes< packet::login >( recived_bytes );
 			
 		} break;
-		case sdk::enums::e_packet_type::test_recv2:
+		case sdk::enums::e_packet_type::login_result:
 		{
-			auto packet = convert_bytes< packet::test_recv_t2 >( recived_bytes );
 
 		} break;
-		case sdk::enums::e_packet_type::test_recv3:
-		{
-			auto packet = convert_bytes< packet::test_recv_t3 >( recived_bytes );
 
-		} break;
-		case sdk::enums::e_packet_type::test_recv4:
-		{
-			auto packet = convert_bytes< packet::test_recv_t4 >( recived_bytes );
-
-		} break;
 		default: break;
 	}
 	

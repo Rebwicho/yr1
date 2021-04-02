@@ -5,10 +5,8 @@ namespace sdk::enums
 {
 	enum class e_packet_type : u8
 	{
-		test_recv1 = 1,
-		test_recv2 = 2,
-		test_recv3 = 3,
-		test_recv4 = 4,
+		login,
+		login_result
 	};
 }
 

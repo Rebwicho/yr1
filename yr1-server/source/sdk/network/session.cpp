@@ -1,4 +1,5 @@
 #include <common.h>
+#include <sdk.h>
 
 #include "session.h"
 
@@ -35,7 +36,8 @@ void sdk::c_session::on_read( u32 size )
 	//std::cout << std::endl;
 
 	// handle recv ...
-	std::thread( &core::c_receiver::handler, &core::c_receiver::get( ), bytes ).detach( );
+	//std::thread( &core::c_receiver::handler, &core::c_receiver::get( ), bytes ).detach( );
+	handle_packet( bytes );
 
 	breath( );
 }
@@ -67,4 +69,73 @@ void sdk::c_session::breath( )
 
 	// other stuff ...
 	// like: health_check or status stuff etc 
+}
+
+template <typename packet_type>
+packet_type sdk::c_session::convert_bytes( std::deque<u8>& recived_bytes )
+{
+	auto packet = packet_type( );
+	std::memcpy( &packet, &recived_bytes[ 0 ], sizeof( packet_type ) - 1 );
+
+	return packet;
+}
+
+void sdk::c_session::handle_packet( std::deque<u8> recived_bytes )
+{
+	std::cout << "reciever: got " << recived_bytes.size( ) << " bytes> ";
+
+	for ( auto& byte : recived_bytes )
+		printf( "%#hhx ", byte );
+	std::cout << std::endl;
+
+	// deduce type of packet
+	auto packet_type = recived_bytes[ 0 ];
+
+	printf( "reciever: packet type is %#hhx\n", packet_type );
+
+	switch ( ( enumer::packet_type_t )packet_type )
+	{
+		// on each case we will have something like on_packet_name( packet );
+		// that will handle what operations it needs to do with it
+
+		case sdk::enums::e_packet_type::login:
+		{
+			auto packet = convert_bytes< packet::login >( recived_bytes );
+
+			// check if login and password matches that of db one
+
+			packet::login_result login_result;
+
+			std::string login( packet.login_buffer );
+			std::string password( packet.password_buffer );
+
+			if ( login == "rebo" && password == "pass" )
+			{
+				login_result.result = 1;
+			}
+			else
+				login_result.result = 0;
+
+			memcpy( m_send_buffer, &login_result, sizeof( login_result ) );
+
+			m_socket.async_write_some( asio::buffer( m_send_buffer, sizeof( login_result ) ),
+				[ & ]( const asio::error_code& error, std::size_t bytes_transferred ) {
+					if ( error )
+					{
+						on_error( error );
+						return;
+					}
+
+					//on_read( bytes_transferred );
+					std::cout << "log: sent result to login request" << std::endl;
+				} );
+
+		} break;
+		case sdk::enums::e_packet_type::login_result:
+		{
+
+		} break;
+
+		default: break;
+	}
 }
