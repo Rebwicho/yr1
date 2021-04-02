@@ -18,6 +18,9 @@
 
 #include "../gui/view.h"
 
+#include "../network/packets.h"
+#include "../network/receiver.h"
+
 // include imgui in sdk ( ? )
 
 
