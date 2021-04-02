@@ -188,6 +188,7 @@
     <ClCompile Include="source\sdk\gui\controls\input.cpp" />
     <ClCompile Include="source\sdk\gui\status_bar.cpp" />
     <ClCompile Include="source\sdk\memory\process_impl.cpp" />
+    <ClCompile Include="source\sdk\network\receiver.cpp" />
     <ClCompile Include="source\sdk\utils\time.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +216,8 @@
     <ClInclude Include="source\sdk\gui\view.h" />
     <ClInclude Include="source\sdk\memory\process_impl.h" />
     <ClInclude Include="source\sdk\network\asio.h" />
+    <ClInclude Include="source\sdk\network\packets.h" />
+    <ClInclude Include="source\sdk\network\receiver.h" />
     <ClInclude Include="source\sdk\utils\enum_file.h" />
     <ClInclude Include="source\sdk\utils\time.h" />
     <ClInclude Include="source\sdk\_include\common.h" />
