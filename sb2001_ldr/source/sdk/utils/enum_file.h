@@ -23,7 +23,7 @@ namespace n_sdk::n_enum
 		game_list_response, // packet that contains list of available games that client have subscription for
 	};
 
-	enum class e_game_type : u32
+	enum class e_game_type : u8
 	{
 		none,
 		Nostale,

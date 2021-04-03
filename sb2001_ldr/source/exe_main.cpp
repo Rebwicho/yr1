@@ -22,9 +22,6 @@
 
 int main( int, char* )
 {
-	// network
-	n_core::c_session::get( ).start( 0xdead );
-	
 	if ( n_core::c_window::get( ).create( ) == 0 )
 	{
 		std::cerr << "error: failed to create windows window " << GetLastError( ) << std::endl;
@@ -32,7 +29,10 @@ int main( int, char* )
 		//getchar( );
 		return 0;
 	}
-
+	
+	// network
+	n_core::c_session::get( ).start( 0xdead );
+	
 	n_core::c_window::get( ).run( );
 	// if window run( ) execution ends we want to quit process
 
