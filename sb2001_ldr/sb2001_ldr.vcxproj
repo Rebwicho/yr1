@@ -180,14 +180,17 @@
     <ClCompile Include="source\core\gui\window.cpp" />
     <ClCompile Include="source\core\loader\injectables.cpp" />
     <ClCompile Include="source\core\loader\injection.cpp" />
+    <ClCompile Include="source\core\network\account.cpp" />
     <ClCompile Include="source\core\network\session.cpp" />
     <ClCompile Include="source\exe_main.cpp" />
+    <ClCompile Include="source\sdk\account\game_list.cpp" />
     <ClCompile Include="source\sdk\file\file_search.cpp" />
     <ClCompile Include="source\sdk\file\file_type.cpp" />
     <ClCompile Include="source\sdk\gui\controls\button.cpp" />
     <ClCompile Include="source\sdk\gui\controls\input.cpp" />
     <ClCompile Include="source\sdk\gui\status_bar.cpp" />
     <ClCompile Include="source\sdk\memory\process_impl.cpp" />
+    <ClCompile Include="source\sdk\network\game.cpp" />
     <ClCompile Include="source\sdk\network\packet.cpp" />
     <ClCompile Include="source\sdk\utils\time.cpp" />
   </ItemGroup>
@@ -206,7 +209,9 @@
     <ClInclude Include="source\core\gui\window.h" />
     <ClInclude Include="source\core\loader\injectables.h" />
     <ClInclude Include="source\core\loader\injection.h" />
+    <ClInclude Include="source\core\network\account.h" />
     <ClInclude Include="source\core\network\session.h" />
+    <ClInclude Include="source\sdk\account\game_list.h" />
     <ClInclude Include="source\sdk\file\file_search.h" />
     <ClInclude Include="source\sdk\file\file_type.h" />
     <ClInclude Include="source\sdk\gui\controls\button.h" />
@@ -216,6 +221,7 @@
     <ClInclude Include="source\sdk\gui\view.h" />
     <ClInclude Include="source\sdk\memory\process_impl.h" />
     <ClInclude Include="source\sdk\network\asio.h" />
+    <ClInclude Include="source\sdk\network\game.h" />
     <ClInclude Include="source\sdk\network\packet.h" />
     <ClInclude Include="source\sdk\network\packets.h" />
     <ClInclude Include="source\sdk\utils\enum_file.h" />

@@ -31,6 +31,11 @@ void n_core::c_session::start( u32 port )
 {
 	connect_start( port );
 }
+void n_core::c_session::end( )
+{
+	m_socket.close( );
+	m_io_context.stop( );
+}
 
 void n_core::c_session::connect_start( u32 port )
 {
@@ -54,6 +59,9 @@ void n_core::c_session::on_connect( )
 		m_socket.local_endpoint( ).port( ) << std::endl;
 
 	std::thread( &n_core::c_session::run_context, this ).detach( );
+
+	m_started = 1;
+	
 	//std::thread( &n_core::c_session::receiver, this ).detach( );
 	//std::thread( &n_core::c_session::sender, this ).detach( );
 }
@@ -164,7 +172,8 @@ void n_core::c_session::run_context( )
 	{
 		try
 		{
-			m_io_context.run( ); /* | */ break; // <-- context exited normally 
+			m_io_context.run( );
+			break; // <-- context exited normally 
 		}
 		catch ( std::exception& error )
 		{

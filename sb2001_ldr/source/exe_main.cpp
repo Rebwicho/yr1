@@ -34,6 +34,9 @@ int main( int, char* )
 	}
 
 	n_core::c_window::get( ).run( );
+	// if window run( ) execution ends we want to quit process
+
+	n_core::c_session::get( ).end( );
 
 	//getchar( );
 	//getchar( );

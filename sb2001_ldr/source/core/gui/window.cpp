@@ -7,6 +7,8 @@
 #include "view/login.h"
 #include "view/panel.h"
 
+#include "../network/session.h"
+
 bool n_core::c_window::create( )
 {
 	WNDCLASS wnd_class = { };
@@ -21,9 +23,11 @@ bool n_core::c_window::create( )
 	
 	std::cout << "log: created window" << std::endl;
 
+	gui::c_status_bar::get( ).set( "loading..." );
+	
 	ShowWindow( m_hwnd, SW_SHOW );
 	UpdateWindow( m_hwnd );
-	
+
 	return 1;
 }
 
@@ -295,19 +299,12 @@ void n_core::c_window::view_switch( n_sdk::view_type_t next_view_type )
 
 void n_core::c_window::view_make( )
 {
-	//gui::view::c_login::get( ).make( );
-	//auto test = gui::view::c_login::get( ).is_fulfilled( );
-	static u32 wait_var = 0; // <-- TODO: remove this line and corresponding
-	
 	switch ( m_view_type )
 	{
-		// we can wait for some stuff here if needed but idk
 		case n_sdk::n_enum::e_view_type::empty:
 		{
-			// lets wait some s before we switch to login view
-			if ( wait_var == 0 ) wait_var = GetTickCount( ) + 1000;
-			if ( GetTickCount( ) < wait_var ) break;
-
+			if ( n_core::c_session::get( ).m_started == 0 ) break;
+			
 			view_switch( n_sdk::view_type_t::login );
 			gui::c_status_bar::get( ).set( "please enter your credentials" );
 			
@@ -320,7 +317,7 @@ void n_core::c_window::view_make( )
 				view_switch( n_sdk::view_type_t::panel );
 		} break;
 		case n_sdk::n_enum::e_view_type::panel: 
-		{		
+		{
 			gui::view::c_panel::get( ).make( );
 
 			// so now we should have some thing like

@@ -8,6 +8,10 @@
 
 #include "../utils/time.h"
 
+#include "../network/game.h"
+
+#include "../account/game_list.h"
+
 #include "../memory/process_impl.h"
 
 #include "../gui/fonts.h"

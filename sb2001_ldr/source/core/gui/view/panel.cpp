@@ -3,6 +3,8 @@
 
 #include "panel.h"
 
+#include "../../network/account.h"
+
 //ImGui::PushFont( n_sdk::c_fonts::get( ).m_input );
 //
 //auto current = ImGui::GetCursorPos( );
@@ -48,20 +50,17 @@ void gui::view::c_panel::make( )
 	
 	ImGui::SetCursorPos( ImVec2( max_start.x / 2 - ( max_start.x * 0.30f / 2 ) - ( max_start.x * 0.10f / 2 ) - ( 2.f ), max_start.y / 2 - 8.f ) );
 
-	const char* items[ ] = { "choose game", "Nostale", "NosWings" };
-	static int item_current_idx = 0; // Here we store our selection data as an index.
-	const char* combo_label = items[ item_current_idx ];  // Label to preview before opening the combo (technically it could be anything)
-	
 	ImGui::PushItemWidth( max_start.x * 0.30f );
-	if ( ImGui::BeginCombo( "##combo_game", combo_label, ImGuiComboFlags_HeightSmall | ImGuiComboFlags_NoArrowButton ) )
+	if ( ImGui::BeginCombo( "##combo_game", core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_game_name.c_str( ),
+		ImGuiComboFlags_HeightSmall | ImGuiComboFlags_NoArrowButton ) )
 	{
 		is_hovered = ImGui::IsItemHovered( ImGuiHoveredFlags_RectOnly );
 
-		for ( int n = 0; n < IM_ARRAYSIZE( items ); n++ )
+		for ( int n = 0; n < core::network::c_account::get( ).game_list( ).get( ).size( ); n++ )
 		{
-			const bool is_selected = ( item_current_idx == n );
-			if ( ImGui::Selectable( items[ n ], is_selected, n == 0 ? ImGuiSelectableFlags_Disabled : 0 ) )
-				item_current_idx = n;
+			const bool is_selected = ( m_selected_game == n );
+			if ( ImGui::Selectable( core::network::c_account::get( ).game_list( ).get( )[ n ].m_game_name.c_str( ), is_selected, n == 0 ? ImGuiSelectableFlags_Disabled : 0 ) )
+				m_selected_game = n;
 
 			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
 			if ( is_selected )
@@ -78,7 +77,7 @@ void gui::view::c_panel::make( )
 	ImGui::PushItemWidth( max_start.x * 0.1f );
 	if ( m_bload.make( "load" ) )
 	{
-		std::cout << "log: clicked load button, game: "<< items[ item_current_idx ] << std::endl;
+		std::cout << "log: clicked load button, game: " << core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_game_name << std::endl;
 	}
 }
 

@@ -5,7 +5,6 @@ using asio::ip::tcp;
 
 namespace n_core
 {
-
 	class c_session : public c_singleton< c_session >
 	{
 	public:
@@ -21,6 +20,7 @@ namespace n_core
 		// example usage: on button click create new detached thread with that function
 		
 		void start( u32 port );
+		void end( );
 	
 	protected:
 		void connect_start( u32 port );
@@ -47,8 +47,8 @@ namespace n_core
 		void run_context( );
 
 	public:
-		u32 m_login_result = 0;
-	
+		bool m_started = 0;
+		
 	private:
 		asio::io_context m_io_context;
 		tcp::socket m_socket;

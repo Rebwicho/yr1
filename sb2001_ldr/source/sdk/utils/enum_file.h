@@ -18,7 +18,18 @@ namespace n_sdk::n_enum
 	enum class e_packet_type : u8
 	{
 		login,
-		login_response
+		login_response,
+		game_list, // client requests game list that he have active subscription for
+		game_list_response, // packet that contains list of available games that client have subscription for
+	};
+
+	enum class e_game_type : u32
+	{
+		none,
+		Nostale,
+		Noswings,
+		test1,
+		test2,
 	};
 }
 
@@ -27,9 +38,15 @@ namespace enumer
 	typedef n_sdk::n_enum::e_packet_type packet_type_t;
 }
 
+namespace enums
+{
+	typedef n_sdk::n_enum::e_game_type game_type;
+}
+
 namespace n_sdk
 {
 	typedef n_sdk::n_enum::e_view_type view_type_t;
+	
 }
 
 
