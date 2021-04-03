@@ -28,7 +28,7 @@ namespace sdk::packets
 	packet_end
 
 	packet_start( s_game_list_response, enumer::packet_type_t::game_list_response )
-		u32 games_list[ 4 /* size of how much we have cheats created Nostale, NosWings, ... */ ] = { };
+		u8 games_list[ 4 /* size of how much we have cheats created Nostale, NosWings, ... */ ] = { };
 	packet_end
 	
 	// ...
