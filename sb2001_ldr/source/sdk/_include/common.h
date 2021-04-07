@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include "../../sdk/network/asio.h"
+
 #include <Windows.h>
 
 #include <stdio.h>
@@ -15,6 +17,7 @@
 #include <deque>
 #include <array>
 
+#include <fstream>
 #include <filesystem>
 
 #include <dwmapi.h>
@@ -31,6 +34,8 @@
 #pragma comment (lib, "d3dx9.lib")
 
 #include "singleton.h"
+
+typedef signed __int8 s8;
 
 typedef unsigned __int8 u8;
 typedef unsigned __int16 u16;

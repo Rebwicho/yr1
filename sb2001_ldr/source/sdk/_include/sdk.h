@@ -8,6 +8,10 @@
 
 #include "../utils/time.h"
 
+#include "../network/game.h"
+
+#include "../account/game_list.h"
+
 #include "../memory/process_impl.h"
 
 #include "../gui/fonts.h"
@@ -18,8 +22,10 @@
 
 #include "../gui/view.h"
 
-// include imgui in sdk ( ? )
+#include "../network/packets.h"
+#include "../network/packet.h"
 
+// include imgui in sdk ( ? )
 
 //#include <d3dx9.h>
 //#pragma comment (lib, "d3dx9.lib")

@@ -1,9 +1,11 @@
 #include <common.h>
 #include <sdk.h>
 
+#include "core/network/session.h"
 #include "core/gui/window.h"
 
-/*
+/* int main( int, char* )
+{
 	n_core::c_injectables::get( ).scan( );
 	std::wcout << "[ sb2001_ldr ]: select injectable: ";
 	u32 selected_injectable;
@@ -27,11 +29,17 @@ int main( int, char* )
 		//getchar( );
 		return 0;
 	}
-
+	
+	// network
+	n_core::c_session::get( ).start( 0xdead );
+	
 	n_core::c_window::get( ).run( );
+	// if window run( ) execution ends we want to quit process
+
+	n_core::c_session::get( ).end( );
 
 	//getchar( );
-	getchar( );
+	//getchar( );
 
 	return 1;
 }
