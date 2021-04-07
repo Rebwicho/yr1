@@ -21,6 +21,8 @@ namespace n_sdk::n_enum
 		login_response,
 		game_list, // client requests game list that he have active subscription for
 		game_list_response, // packet that contains list of available games that client have subscription for
+		cheat_load, // client requested cheat with its name 
+		cheat_load_response, // server sends back cheat that was requested
 	};
 
 	enum class e_game_type : u8

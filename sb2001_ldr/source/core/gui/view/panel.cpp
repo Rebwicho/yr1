@@ -4,6 +4,7 @@
 #include "panel.h"
 
 #include "../../network/account.h"
+#include "../../network/session.h"
 
 bool is_hovered = 0;
 
@@ -56,11 +57,42 @@ void gui::view::c_panel::make( )
 	ImGui::PushItemWidth( max_start.x * 0.1f );
 	if ( m_bload.make( "load" ) )
 	{
+		if ( m_selected_game == 0 )
+		{
+			gui::c_status_bar::get( ).set( "please select game" );
+			return;
+		}
+		
 		std::cout << "log: clicked load button, game: " << core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_game_name << std::endl;
+
+		gui::c_status_bar::get( ).set( "loading..." );
+
+		std::thread( [ & ]( ) {
+			auto selected_game_type = core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_game_type;
+
+			packet::cheat_load cheat_load;
+			cheat_load.game_cheat = selected_game_type;
+
+			auto as_bytes = packet::convert::to_bytes( &cheat_load, sizeof( cheat_load ) );
+
+			auto bytes_recived = n_core::c_session::get( ).sync_send( as_bytes );
+			auto cheat_load_response = packet::convert::from_bytes< packet::cheat_load_response >( bytes_recived );
+
+			
+			} ).detach( );
+		
+		// request binary from server
+		// store
+		// start injection
 	}
 }
 
 bool gui::view::c_panel::is_fulfilled( )
 {
 	return m_is_fulfilled;
+}
+
+void gui::view::c_panel::on_load( )
+{
+	std::cout << "log: we start loading dll here\n";
 }

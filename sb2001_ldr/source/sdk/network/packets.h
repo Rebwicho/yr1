@@ -31,6 +31,14 @@ namespace sdk::packets
 		enums::game_type games_list[ 4 /* size of how much we have cheats created Nostale, NosWings, ... */ ] = { };
 	packet_end
 
+	packet_start( s_cheat_load, enumer::packet_type_t::cheat_load )
+		enums::game_type game_cheat;
+	packet_end
+
+	packet_start( s_cheat_load_response, enumer::packet_type_t::cheat_load_response )
+		std::byte bin[ 1024 ];
+	packet_end
+	
 	// ...
 
 }
@@ -42,6 +50,8 @@ namespace packet
 	typedef sdk::packets::s_login_response login_response;
 	typedef sdk::packets::s_game_list game_list;
 	typedef sdk::packets::s_game_list_response game_list_response;
+	typedef sdk::packets::s_cheat_load cheat_load;
+	typedef sdk::packets::s_cheat_load_response cheat_load_response;
 
 }
 

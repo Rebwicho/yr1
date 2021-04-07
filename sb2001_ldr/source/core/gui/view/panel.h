@@ -9,6 +9,9 @@ namespace gui::view
 		void make( ) override;
 		bool is_fulfilled( ) override;
 
+	public:
+		void on_load( );
+	
 	private: /* define controls here */
 		controls::button m_bload;
 	
