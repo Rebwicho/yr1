@@ -27,7 +27,7 @@ namespace n_core
 		enum e_injectable_type
 		{
 						/*	publisher/owner		game		process name  */
-			nostale_gf, //	- gameforge			nostale		process: NosTale.exe
+			nostale_gf, //	- gameforge			nostale		process: NostaleClientX.exe
 			nostale_nw, //	- noswings-project	nostale		process: NosWings.exe
 
 
