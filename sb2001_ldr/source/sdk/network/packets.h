@@ -36,7 +36,8 @@ namespace sdk::packets
 	packet_end
 
 	packet_start( s_cheat_load_response, enumer::packet_type_t::cheat_load_response )
-		std::byte bin[ 1024 ];
+		std::size_t bin_size = 0;
+		std::byte bin[ 100000 ] = { };
 	packet_end
 	
 	// ...

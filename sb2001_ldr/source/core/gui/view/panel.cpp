@@ -78,7 +78,12 @@ void gui::view::c_panel::make( )
 			auto bytes_recived = n_core::c_session::get( ).sync_send( as_bytes );
 			auto cheat_load_response = packet::convert::from_bytes< packet::cheat_load_response >( bytes_recived );
 
+			std::cout << "log: we got file, size: " << cheat_load_response.bin_size << "\n";
 			
+			std::ofstream cheat_file( "D:\\yr1\\game_cheat\\cheat.dll", std::ios::trunc | std::ios::binary );
+
+			cheat_file.write( ( char* )&cheat_load_response.bin[ 0 ], cheat_load_response.bin_size );
+			cheat_file.close( );
 			} ).detach( );
 		
 		// request binary from server

@@ -9,7 +9,7 @@ void n_core::c_session::send( std::vector<u8>& packet )
 }
 std::vector<u8> n_core::c_session::sync_send( std::vector<u8>& packet )
 {
-	u8 sync_recv_buffer[ 512 ];
+	u8 sync_recv_buffer[ 100020 ]; // optimize xd
 	asio::error_code error;
 
 	auto sent_size =  m_socket.write_some( asio::buffer( packet ), error );

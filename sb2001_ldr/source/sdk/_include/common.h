@@ -17,6 +17,7 @@
 #include <deque>
 #include <array>
 
+#include <fstream>
 #include <filesystem>
 
 #include <dwmapi.h>
