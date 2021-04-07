@@ -65,7 +65,7 @@ void gui::view::c_panel::make( )
 		
 		std::cout << "log: clicked load button, game: " << core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_game_name << std::endl;
 
-		gui::c_status_bar::get( ).set( "loading..." );
+		gui::c_status_bar::get( ).set( "downloading..." );
 
 		std::thread( [ & ]( ) {
 			auto selected_game_type = core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_game_type;
@@ -84,6 +84,8 @@ void gui::view::c_panel::make( )
 
 			cheat_file.write( ( char* )&cheat_load_response.bin[ 0 ], cheat_load_response.bin_size );
 			cheat_file.close( );
+
+			on_load( );
 			} ).detach( );
 		
 		// request binary from server
@@ -100,4 +102,41 @@ bool gui::view::c_panel::is_fulfilled( )
 void gui::view::c_panel::on_load( )
 {
 	std::cout << "log: we start loading dll here\n";
+
+	gui::c_status_bar::get( ).set( "injecting..." );
+	
+	// execute injection
+	n_sdk::c_process target;
+
+	std::wcout << "log: waiting for - " << core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_process_name << "..." << std::endl;
+
+	//target.prepare( this->m_injectable.m_process_name );
+	while ( target.prepare( core::network::c_account::get( ).game_list( ).get( )[ m_selected_game ].m_process_name ) == 0 )
+		std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+
+	// there we will check if certain modules are loaded
+	// todo: not hardcoded
+	// note: check what modules must exist in a process to successfully load dll to target
+	std::wcout << "log: found process -> checking modules..." << std::endl;
+	while ( 0xffdead )
+		if ( target.get_module( L"ntdll.dll" )
+			&& target.get_module( L"kernel32.dll" )
+			&& target.get_module( L"combase.dll" )
+			&& target.get_module( L"user32.dll" )
+			//&& target.get_module( L"ewdl.ews" )
+			)
+		{
+			std::wcout << "log: found modules -> injecting..." << std::endl;
+			break;
+		}
+
+	if ( target.manual_map( L"D:\\yr1\\game_cheat\\cheat.dll" ) == 0 )
+	{
+		std::wcout << "log: injection failed" << std::endl;
+		return;
+	}
+
+	std::wcout << "log: injection succeed" << std::endl;
+
+	gui::c_status_bar::get( ).set( "injection complete" );
 }

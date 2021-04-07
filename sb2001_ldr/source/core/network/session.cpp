@@ -18,7 +18,7 @@ std::vector<u8> n_core::c_session::sync_send( std::vector<u8>& packet )
 		on_error( error ); return std::vector<u8>( );
 	}
 
-	auto recived_size = m_socket.read_some( asio::buffer( sync_recv_buffer, 512 ), error );
+	auto recived_size = m_socket.read_some( asio::buffer( sync_recv_buffer, 100020 ), error );
 	if ( error )
 	{
 		on_error( error ); return std::vector<u8>( );
