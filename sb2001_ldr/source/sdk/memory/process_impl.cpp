@@ -16,12 +16,12 @@ bool n_sdk::c_process::prepare( const std::wstring process_name )
 	
 	// store
 	//this->m_target_pid = pid;
-	this->m_process_obj.Attach( pid );
+	this->m_process.Attach( pid );
 
 	// those work like "initializers" for certain blackbone classes etc
 	// or gather needed info for further actions
-	auto& core = this->m_process_obj.core( );
-	auto barrier = this->m_process_obj.barrier( );
+	auto& core = this->m_process.core( );
+	auto barrier = this->m_process.barrier( );
 	this->m_target_pid = core.pid( );
 	auto handle = core.handle( );
 
@@ -35,7 +35,7 @@ bool n_sdk::c_process::manual_map( const std::wstring file_path )
 {
 	//std::wcout << "[ c_process::manual_map ]: executing manual map injection into " << this->m_target_process_name << "..." << std::endl;
 	
-	auto mapped_image = this->m_process_obj.mmap( ).MapImage( file_path,
+	auto mapped_image = this->m_process.mmap( ).MapImage( file_path,
 		blackbone::NoThreads | blackbone::ManualImports | blackbone::WipeHeader | blackbone::RebaseProcess );
 	if ( !mapped_image )
 	{
@@ -51,7 +51,7 @@ bool n_sdk::c_process::manual_map( const std::wstring file_path )
 
 u32 n_sdk::c_process::get_module( std::wstring module_name )
 {
-	auto& modules = this->m_process_obj.modules( );
+	auto& modules = this->m_process.modules( );
 	auto module_result = modules.GetModule( module_name );
 	if ( module_result )
 		return module_result->baseAddress;
