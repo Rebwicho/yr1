@@ -162,7 +162,49 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 					std::cout << "log:" << m_sid << "> sent response to game_list request" << std::endl;
 				} );
 		} break;
+		case n_enum::e_packet_type::cheat_load: 
+		{
+			// todo: check
+			// if client requested cheat that he have avail for him
+			
+			auto packet = packet::convert::from_bytes< packet::cheat_load >( recived_bytes );
 
+			std::vector< char > game_cheat_file = { };
+			
+			// deduce what cheat client have requested
+			// later on we can have a class that takes care of loading bin to byte array and returns that array for us
+			// so we can just send it
+			switch ( packet.game_cheat )
+			{
+				case enums::game_type::Nostale:
+				{
+					// load nostale dll
+					// D:\\yr1\\game_cheat\\sb2001_nt_x86_Release.dll
+					std::ifstream file_stream( "D:\\yr1\\game_cheat\\sb2001_nt_x86_Release.dll", std::ios::binary );
+					game_cheat_file = std::vector< char >(
+						std::istreambuf_iterator<char>( file_stream ),
+						std::istreambuf_iterator<char>( ) );
+
+					file_stream.close( );
+				} break;
+
+				case enums::game_type::Noswings:
+				{
+
+				} break;
+				
+				default: 
+				{
+					std::cout << "log:" << m_sid << "> recived unknown game type request" << std::endl;
+				} break;
+			} 
+
+			std::cout << "log:" << m_sid << "> prepared file of size " << game_cheat_file.size( ) << std::endl;
+
+			
+			
+		} break;
+		
 		default: 
 		{
 			std::cout << "log:" << m_sid << "> recived unknown packet type" << std::endl;

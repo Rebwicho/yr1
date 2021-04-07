@@ -16,6 +16,11 @@
 
 #include <string>
 
+#include <fstream>
+#include <iterator>
+
+#include <vector>
+
 #include <deque>
 
 #include <functional>
