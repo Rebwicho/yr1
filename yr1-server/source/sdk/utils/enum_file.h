@@ -1,7 +1,7 @@
 #ifndef ENUM_FILE_H
 #define ENUM_FILE_H
 
-namespace sdk::enums
+namespace sdk::n_enum
 {
 	enum class e_packet_type : u8
 	{
@@ -25,12 +25,12 @@ namespace sdk::enums
 
 namespace enumer
 {
-	typedef sdk::enums::e_packet_type packet_type_t;
+	typedef sdk::n_enum::e_packet_type packet_type_t;
 }
 
 namespace enums
 {
-	typedef sdk::enums::e_game_type game_type;
+	typedef sdk::n_enum::e_game_type game_type;
 }
 
 #endif // ENUM_FILE_H

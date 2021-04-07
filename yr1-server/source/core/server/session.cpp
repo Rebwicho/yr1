@@ -88,7 +88,7 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 		// on each case we will have something like on_packet_##name( packet );
 		// that will handle what operations it needs to do with it
 
-		case sdk::enums::e_packet_type::login:
+		case sdk::n_enum::e_packet_type::login:
 		{
 			auto packet = packet::convert::from_bytes< packet::login >( recived_bytes );
 			
@@ -132,7 +132,7 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 				} );
 
 		} break;
-		case sdk::enums::e_packet_type::game_list:
+		case sdk::n_enum::e_packet_type::game_list:
 		{
 			auto packet = packet::convert::from_bytes< packet::game_list >( recived_bytes );
 
@@ -144,7 +144,7 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 			auto game_list_response = packet::game_list_response( );
 
 			for ( int it = 0; it < avail_client_games.size(  ); ++it )
-				game_list_response.games_list[ it ] = avail_client_games[ it ];
+				game_list_response.games_list[ it ] = static_cast< enums::game_type >( avail_client_games[ it ] );
 	
 			memcpy( &m_send_buffer, &game_list_response, sizeof( game_list_response ) );
 
