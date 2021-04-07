@@ -8,12 +8,18 @@
 
 #include <thread>
 #include <chrono>
+#include <mutex>
 
 #include <iomanip>
 #include <ctime>
 //#include <format> // not implemented till c++20
 
 #include <string>
+
+#include <fstream>
+#include <iterator>
+
+#include <vector>
 
 #include <deque>
 
@@ -27,6 +33,12 @@
 //#define ASIO_SEPARATE_COMPILATION
 #define _WIN32_WINNT 0x0A00
 #include <asio.hpp>
+
+#ifdef _DEBUG
+#pragma comment(lib, "asio-dbg-x86.lib")
+#else
+#pragma comment(lib, "asio-x86.lib")
+#endif
 
 #include <Windows.h>
 

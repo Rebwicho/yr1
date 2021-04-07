@@ -1,10 +1,10 @@
 #include <common.h>
 #include <sdk.h>
 
-#include "core/loader/injectables.h"
-#include "core/loader/injection.h"
+#include "core/network/session.h"
+#include "core/gui/window.h"
 
-int main( int, char* )
+/* int main( int, char* )
 {
 	n_core::c_injectables::get( ).scan( );
 	std::wcout << "[ sb2001_ldr ]: select injectable: ";
@@ -18,8 +18,28 @@ int main( int, char* )
 	n_core::c_injection::get( ).set_mode( n_core::injection_mode_t::manualmap );
 	n_core::c_injection::get( ).execute( );
 
-	getchar( );
-	getchar( );
+ */
+
+int main( int, char* )
+{
+	if ( n_core::c_window::get( ).create( ) == 0 )
+	{
+		std::cerr << "error: failed to create windows window " << GetLastError( ) << std::endl;
+		//getchar( );
+		//getchar( );
+		return 0;
+	}
 	
+	// network
+	n_core::c_session::get( ).start( 0xdead );
+	
+	n_core::c_window::get( ).run( );
+	// if window run( ) execution ends we want to quit process
+
+	n_core::c_session::get( ).end( );
+
+	//getchar( );
+	//getchar( );
+
 	return 1;
 }
