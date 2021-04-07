@@ -16,30 +16,31 @@ namespace sdk::packets
 {
 	packet_start( s_login, enumer::packet_type_t::login )
 		char login_buffer[ 17 ] = { };
-	char password_buffer[ 33 ] = { };
+		char password_buffer[ 33 ] = { };
 	packet_end
 
-		packet_start( s_login_response, enumer::packet_type_t::login_response )
+	packet_start( s_login_response, enumer::packet_type_t::login_response )
 		u32 result; /* u32 because we can have multiple diffrent results like banned suspended success failed ... */
 	packet_end
 
-		packet_start( s_game_list, enumer::packet_type_t::game_list )
+	packet_start( s_game_list, enumer::packet_type_t::game_list )
 
-		packet_end
+	packet_end
 
-		packet_start( s_game_list_response, enumer::packet_type_t::game_list_response )
+	packet_start( s_game_list_response, enumer::packet_type_t::game_list_response )
 		enums::game_type games_list[ 4 /* size of how much we have cheats created Nostale, NosWings, ... */ ] = { };
 	packet_end
 
-		packet_start( s_cheat_load, enumer::packet_type_t::cheat_load )
+	packet_start( s_cheat_load, enumer::packet_type_t::cheat_load )
 		enums::game_type game_cheat;
 	packet_end
 
 		packet_start( s_cheat_load_response, enumer::packet_type_t::cheat_load_response )
-		std::byte bin[ 1024 ];
+		std::size_t bin_size = 0;
+		std::byte bin[ 100000 ] = { };
 	packet_end
 
-		// ...
+	// ...
 
 }
 #pragma pack(pop)

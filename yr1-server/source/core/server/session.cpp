@@ -159,7 +159,7 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 					}
 
 					//on_read( bytes_transferred );
-					std::cout << "log:" << m_sid << "> sent response to game_list request" << std::endl;
+					std::cout << "log: " << m_sid << "> sent response to game_list request" << std::endl;
 				} );
 		} break;
 		case n_enum::e_packet_type::cheat_load: 
@@ -195,19 +195,42 @@ void sdk::c_session::handle_packet( std::vector<u8>& recived_bytes )
 				
 				default: 
 				{
-					std::cout << "log:" << m_sid << "> recived unknown game type request" << std::endl;
+					std::cout << "log: " << m_sid << "> recived unknown game type request" << std::endl;
 				} break;
 			} 
 
-			std::cout << "log:" << m_sid << "> prepared file of size " << game_cheat_file.size( ) << std::endl;
+			std::cout << "log: " << m_sid << "> prepared file of size " << game_cheat_file.size( ) << std::endl;
 
+			auto cheat_load_response = packet::cheat_load_response( );
 			
-			
+			// load file into packet buffer and send
+			cheat_load_response.bin_size = game_cheat_file.size( );
+			for ( size_t i = 0, file_size = game_cheat_file.size( ); i < file_size; i++ )
+			{
+				cheat_load_response.bin[ i ] = static_cast< std::byte > ( game_cheat_file[ i ] );
+			}
+
+			memcpy( &m_send_buffer, &cheat_load_response, sizeof( packet::cheat_load_response ) );
+
+			std::cout << "log: sending " << sizeof( cheat_load_response ) << "bytes to " << m_sid << std::endl;
+
+			m_socket.async_write_some( asio::buffer( m_send_buffer ),
+				[ & ]( const asio::error_code& error, std::size_t bytes_transferred ) {
+					if ( error )
+					{
+						on_error( error );
+						return;
+					}
+
+					//on_read( bytes_transferred );
+					std::cout << "log: " << m_sid << "> sent response to cheat_load request" << std::endl;
+				} );
+				
 		} break;
 		
 		default: 
 		{
-			std::cout << "log:" << m_sid << "> recived unknown packet type" << std::endl;
+			std::cout << "log: " << m_sid << "> recived unknown packet type" << std::endl;
 		} break;
 	}
 }

@@ -40,7 +40,7 @@ namespace sdk
 
 	private:
 		u8 m_recv_buffer[ 512 ];
-		u8 m_send_buffer[ 512 ];
+		u8 m_send_buffer[ 100020 ];
 
 	private:
 		tcp::socket m_socket;
